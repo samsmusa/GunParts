@@ -1,3 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Fira+Code:wght@300&family=Roboto:wght@100&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +20,5 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@import 'tailwindcss/utilities';
