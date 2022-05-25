@@ -9,10 +9,11 @@ import useProfile from "../../hooks/useProfile";
 import BookingModal from "./BookingModal";
 import PostReview from "./PostReview";
 import ReviewCard from "./ReviewCard";
-import LoadReviews from "../../hooks/LoadRevies";
+import LoadData from "../../hooks/LoadData";
+import Progress from "../../components/Progress/Progress";
 
 const Details = () => {
-  const [profile] = useProfile();
+  const profile = useProfile();
   const { id } = useParams();
   const [product, setProduct] = useState({});
   useEffect(() => {
@@ -45,10 +46,18 @@ const Details = () => {
     setItem([...item, data]);
   };
 
-  const url = `http://localhost:5000/reviews/?product=${id}`;
-  const { isLoading, error, data:reviews, refetch } = LoadReviews(
-    url, ['reviewData',id]
-  );
+  const {
+    isLoading,
+    error,
+    data: reviews,
+    refetch,
+  } = LoadData(`http://localhost:5000/reviews/?product=${id}`, [
+    "reviewData",
+    id,
+  ]);
+  if (!profile || isLoading) {
+    return <Progress />;
+  }
   return (
     <div>
       <div className="bg-zinc-900">
@@ -82,7 +91,7 @@ const Details = () => {
 
             <div className="pt-4">
               <p>Make a Order</p>
-              {profile.role !== "admin" ? (
+              {profile?.role !== "admin" ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <table className="table-fixed">
                     <thead className="px-4">
@@ -138,7 +147,7 @@ const Details = () => {
               )}
             </div>
 
-            {profile.role !== "admin" && (
+            {profile?.role !== "admin" && (
               <div className="mt-5">
                 <p> your order Projection:</p>
                 <table className="table-fixed w-full h-60">
@@ -154,7 +163,10 @@ const Details = () => {
                   <tbody>
                     {item.length !== 0 &&
                       item.map((e, index) => (
-                        <tr className="border border-gray-500  border-x-0 ">
+                        <tr
+                          key={index + "dfdgr"}
+                          className="border border-gray-500  border-x-0 "
+                        >
                           <th className="px-4">{index + 1}</th>
                           <th className="px-4">{e.color}</th>
                           <th className="px-11">{e.size}</th>
@@ -197,6 +209,12 @@ const Details = () => {
             <div className="divider"></div>
           </div>
 
+          <div className="col-span-3 text-left mb-4">
+            <h3 className="font-cursive text-2xl">Post a Review</h3>
+            <div className="divider col-span-3"></div>
+            <PostReview product={product} refetch={refetch} />
+          </div>
+          <div className="divider col-span-3"></div>
           <div className="col-span-3 text-left">
             <h3 className="font-cursive text-2xl">
               Reviews ({reviews && reviews.length})
@@ -209,12 +227,6 @@ const Details = () => {
                 ))}
             </div>
           </div>
-          <div className="divider"></div>
-          <div className="col-span-3 text-left mb-4">
-            <h3 className="font-cursive text-2xl">Post a Review</h3>
-            <div className="divider"></div>
-            <PostReview product={product} refetch={refetch} />
-          </div>
         </div>
       </div>
       <div className="">
@@ -222,10 +234,7 @@ const Details = () => {
         <div className="bg-zinc-900 ">
           <div className="pt-5 container mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
             {related.slice(0, 6).map((item) => (
-              <HomeCart
-                item={item}
-                key={item._id}
-              />
+              <HomeCart item={item} key={item._id} />
             ))}
           </div>
         </div>

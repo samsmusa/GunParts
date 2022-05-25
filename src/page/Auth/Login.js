@@ -9,6 +9,8 @@ import {
   useAuthState,
 } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import useProfile from "../../hooks/useProfile";
+import LoadData from "../../hooks/LoadData";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -50,25 +52,27 @@ const Login = () => {
         );
       }
     }
-    
   };
-  if (guser) {
-    console
-      .log(guser)
-    const data = {
-      name: guser.user.displayName,
-      email: guser.user.email,
-      img: guser.user.photoURL,
-      role: "client",
-    };
-      fetch("http://localhost:5000/user", {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-      .then((res) => res.json());
+  if (guser?.user?.email) {
+    fetch(`http://localhost:5000/user/${guser?.user?.email}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status !== "success") {
+          const data = {
+            name: guser.user.displayName,
+            email: guser.user.email,
+            img: guser.user.photoURL,
+            role: "client",
+          };
+          fetch("http://localhost:5000/user", {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }).then((res) => res.json());
+        }
+      });
   }
 
   if (user || guser || muser) {
@@ -132,9 +136,9 @@ const Login = () => {
             </button>
             <div className="border border-sky-400 border-x-0"></div>
             <p className="text-xl">
-              Have an Account ? Please{" "}
-              <Link to="/login" className="text-accent">
-                login
+              Haven't an Account ? Please{" "}
+              <Link to="/register" className="text-accent">
+                sign up
               </Link>
             </p>
           </div>

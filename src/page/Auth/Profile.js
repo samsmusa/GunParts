@@ -5,6 +5,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import Progress from "../../components/Progress/Progress";
+import Imgbb from "../../hooks/Imgbb";
+import useProfile from "../../hooks/useProfile";
+import LoadData from "../../hooks/LoadData";
 
 const Profile = () => {
   const [isEdit, setisEdit] = useState(false);
@@ -18,43 +21,24 @@ const Profile = () => {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
   };
-  const [profile, setProfile] = useState({});
-  useEffect(() => {
-    fetch(`http://localhost:5000/user/${user?.email}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.status) {
-          setProfile(res);
-        }
-      });
-  }, [user]);
+
+  const profile = useProfile();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
-    data.email = user.email;
-    if (data.image) {
-      const formData = new FormData();
-      formData.append("image", data.image[0]);
-      const url =
-        "https://api.imgbb.com/1/upload?key=63cc0d5d42db1c59c5fc2c707c750411";
 
-      await fetch(url, {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.success) {
-            const img = res.data.url;
-            data.img = img;
-          }
-        });
-    }
+  const onSubmit = async (data) => {
     if (isEdit) {
+      data.email = user.email;
+      if (data.image.length !== 0) {
+        const img = await Imgbb(data.image[0]);
+        data.img = img;
+      }
+
       const { image, ...obj } = data;
       fetch("http://localhost:5000/user", {
         method: "PUT",
@@ -62,19 +46,15 @@ const Profile = () => {
           "content-type": "application/json",
         },
         body: JSON.stringify(obj),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          setProfile(result[0]);
-          let { _id, ...res } = result[0];
-          reset(res);
-        });
+      }).then((res) => res.json());
+
       setisEdit(false);
+      window.location.reload();
     } else {
       setisEdit(true);
     }
   };
-  if (!user) {
+  if (loading || !profile) {
     return <Progress />;
   }
   return (
@@ -98,7 +78,7 @@ const Profile = () => {
                 <div className="py-3">
                   <input
                     type="file"
-                    className="filetype"
+                    className="filetype "
                     {...register("image", {
                       onChange: onImageChange,
                     })}
@@ -119,11 +99,11 @@ const Profile = () => {
                 </p>
                 <p className="font-code pt-2">
                   <select
+                    defaultValue={profile?.role}
                     disabled={!isEdit}
                     className="select-sm mr-3 select bg-base-100"
                     {...register("role")}
                   >
-                    <option selected>{profile?.role}</option>
                     <option>client</option>
                     <option>admin</option>
                   </select>

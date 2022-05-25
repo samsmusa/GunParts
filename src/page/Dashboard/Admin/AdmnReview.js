@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
-import auth from "../../firebase.init";
-import LoadData from "../../hooks/LoadData";
-import CommentModal from "./CommentModal";
+import Progress from "../../../components/Progress/Progress";
+import auth from "../../../firebase.init";
+import LoadData from "../../../hooks/LoadData";
+import CommentModal from "../CommentModal";
 
-const Reviews = () => {
-  const [user] = useAuthState(auth);
+const AdmnReview = () => {
+  const [user, loading, autherror] = useAuthState(auth);
   const [comment, setComment] = useState({});
   const [all, setAll] = useState([]);
   const [three, setThree] = useState([]);
@@ -17,16 +18,15 @@ const Reviews = () => {
   const [four, setFour] = useState([]);
   const [five, setFive] = useState([]);
   const [one, setOne] = useState([]);
+
   const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-  const { data: item, refetch } = LoadData(
-    `http://localhost:5000/reviews/?email=${user?.email}`,
-    ["userReview", user?.email]
-  );
+    data: item,
+    refetch,
+    isLoading,
+  } = LoadData(`http://localhost:5000/reviews/?email=${user?.email}`, [
+    "userReview",
+    user?.email,
+  ]);
 
   useEffect(() => {
     if (item) {
@@ -38,21 +38,21 @@ const Reviews = () => {
       setFive(item.filter((e) => e.rating === "5"));
     }
   }, [item]);
+
+  if (loading || isLoading) {
+    return <Progress />;
+  }
   return (
     <div className=" w-full">
       <div className="flex justify-between">
         <div>
           <span className="pr-2 text-xl">Reviews</span>
-          <span>
-            <button className="btn btn-sm btn-outline">Add review</button>
-          </span>
         </div>
         <div>
           <input
             type="text"
             placeholder="Search"
             className="input input-ghost h-8 w-40"
-            {...register("email")}
             disabled={true}
           />
           <button className="btn btn-sm ml-4 bg-base-100">Search</button>
@@ -108,9 +108,9 @@ const Reviews = () => {
               <th className="">Image</th>
               <th className="">parts-Type</th>
               <th className="">gun-Type</th>
+              <th className="">user</th>
               <th className="">Rating</th>
               <th className="">Comment</th>
-              <th className="">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -126,7 +126,7 @@ const Reviews = () => {
                       class="tooltip tooltip-info  tooltip-bottom hover:z-50"
                       data-tip={e?.product?.name}
                     >
-                      {e?.product?.name.slice(0, 10)}
+                      {e?.product.name.slice(0, 10) + "..."}
                     </div>
                   </th>
                   <th className="">
@@ -138,7 +138,7 @@ const Reviews = () => {
                   </th>
                   <th className="">{e?.product?.partsType}</th>
                   <th className="">{e?.product?.gunType}</th>
-
+                  <th className=" text-xs">{e?.profile?.email}</th>
                   <th className="">{e?.rating}</th>
                   <th className=" text-xs">
                     <label
@@ -154,14 +154,6 @@ const Reviews = () => {
                       {e?.comment.slice(0, 6) + "..."}
                     </label>
                   </th>
-                  <th className="px-4">
-                    <button
-                      className="btn bg-base-100 crbtn px-4 p-0 m-0"
-                      type="submit"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </th>
                 </tr>
               ))}
           </tbody>
@@ -172,4 +164,4 @@ const Reviews = () => {
   );
 };
 
-export default Reviews;
+export default AdmnReview;

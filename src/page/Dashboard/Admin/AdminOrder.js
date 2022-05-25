@@ -4,33 +4,24 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
-import Progress from "../../components/Progress/Progress";
-import auth from "../../firebase.init";
-import LoadData from "../../hooks/LoadData";
-import OrderModal from "./OrderModal";
+import Progress from "../../../components/Progress/Progress";
+import auth from "../../../firebase.init";
+import LoadData from "../../../hooks/LoadData";
+import OrderModal from "../OrderModal";
 
-const Order = () => {
+const AdminOrder = () => {
   const [user, loading, autherror] = useAuthState(auth);
   const [order, setOrder] = useState([]);
   const [processing, setprocessing] = useState([]);
   const [complete, setComplete] = useState([]);
   const [canceled, setCanceled] = useState([]);
   const [pending, setpending] = useState([]);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { formerror: errors },
-  } = useForm();
 
   const {
     data: all,
     refetch,
     isLoading,
-  } = LoadData(
-    `http://localhost:5000/orders/?email=${user?.email}&status=all`,
-    ["userOrder", user?.email]
-  );
+  } = LoadData("http://localhost:5000/orders", ["AdminuserOrder", user?.email]);
 
   const [lot, setlot] = useState([]);
   const actionItem = (product, status) => {
@@ -78,7 +69,7 @@ const Order = () => {
     }
     return classname;
   };
-  if (isLoading) {
+  if (isLoading || loading) {
     return <Progress />;
   }
 
@@ -87,16 +78,12 @@ const Order = () => {
       <div className="flex justify-between">
         <div>
           <span className="pr-2 text-xl">Orders</span>
-          <span>
-            <button className="btn btn-sm btn-outline">Add order</button>
-          </span>
         </div>
         <div>
           <input
             type="text"
             placeholder="Search"
             className="input input-ghost h-8 w-40"
-            {...register("email")}
             disabled={true}
           />
           <button className="btn btn-sm ml-4 bg-base-100">Search</button>
@@ -137,30 +124,18 @@ const Order = () => {
         </span>
       </p>
       <div className="flex pt-1 ">
-        <select
-          defaultValue="black"
-          className="select-sm mr-3 select bg-base-100"
-          {...register("color", { required: true })}
-        >
-          <option>black</option>
+        <select className="select-sm mr-3 select bg-base-100">
+          <option selected>black</option>
           <option>gray</option>
           <option>desert</option>
         </select>
-        <select
-          defaultValue="long"
-          className="select-sm mr-3 select bg-base-100"
-          {...register("size", { required: true })}
-        >
-          <option>long</option>
+        <select className="select-sm mr-3 select bg-base-100">
+          <option selected>long</option>
           <option>small</option>
         </select>
-        <select
-          defaultValue="regular"
-          className="select-sm mr-3 select bg-base-100"
-          {...register("delivery", { required: true })}
-        >
-          <option>regular</option>
-          <option>rxpress</option>
+        <select className="select-sm mr-3 select bg-base-100">
+          <option selected>Regular</option>
+          <option>Express</option>
         </select>
       </div>
       <div className="pt-2">
@@ -168,6 +143,7 @@ const Order = () => {
           <thead className="">
             <tr className="border-2 border-sky-500  border-x-0 ">
               <th className="">No</th>
+              <th className="">user</th>
               <th className="">parts-Type</th>
               <th className="">gun-Type</th>
               <th className="">lot-size</th>
@@ -182,6 +158,7 @@ const Order = () => {
               order.map((e, index) => (
                 <tr key={e._id} className={classCreate(e.status)}>
                   <th className="">{index + 1}</th>
+                  <th className="">{e?.email}</th>
                   <th className="">{e?.product?.partsType}</th>
                   <th className="">{e?.product?.gunType}</th>
                   <th className="">
@@ -196,19 +173,18 @@ const Order = () => {
                   <th className="">{e.total}</th>
                   <th className="">{e.status}</th>
                   <th className="">
-                    {e.status === "pending" ? (
-                      <button
-                        onClick={() => actionItem(e, "processing")}
-                        className="btn btn-sm bg-green  px-4 p-0 m-0"
-                        type="submit"
-                      >
-                        <i className="fa-solid fa-sack-dollar text-black"></i>
-                      </button>
-                    ) : (
-                      "paid"
-                    )}
+                    {e.status === "pending" ? "unpaid" : "paid"}
                   </th>
                   <th className="">
+                    {e.status === "processing" && (
+                      <button
+                        onClick={() => actionItem(e, "complete")}
+                        className="btn btn-sm bg-base-100 bg-green  px-4 p-0 m-0"
+                        type="submit"
+                      >
+                        <i className="fa-solid text-black fa-check"></i>
+                      </button>
+                    )}
                     <button
                       onClick={() => actionItem(e, "canceled")}
                       className="btn btn-sm bg-base-100  px-4 p-0 m-0"
@@ -227,4 +203,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default AdminOrder;

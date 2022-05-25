@@ -6,9 +6,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import useProfile from "../../hooks/useProfile";
 
+import Progress from "../../components/Progress/Progress";
+
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
-  const [profile] = useProfile();
+  const profile = useProfile();
+
+  if (loading) {
+    return <Progress />
+  }
   return (
     <div>
       <div className="drawer drawer-mobile">
@@ -32,19 +38,63 @@ const Dashboard = () => {
             <p className="text-xs"> [ {user?.metadata?.creationTime} ]</p>
           </div>
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 overflow-y-auto w-60 bg-base-100 text-base-content font-code">
-            <li>
-              <Link to="order">
-                <i className="fa-solid fa-folder-tree pr-2"></i>
-                {profile?.role === "admin" ? "Manage Orders" : "Orders"}
-              </Link>
-            </li>
-            <li>
-              <Link to="review">
-                <i className="fa-solid fa-comment pr-2"></i>
-                {profile?.role === "admin" ? "Manage Reviews" : "Revies"}
-              </Link>
-            </li>
+          <ul className="menu p-4 overflow-y-auto w-62 bg-base-100 text-base-content font-code">
+            {profile?.role === "admin" && (
+              <>
+                <li>
+                  <Link to="admin/order">
+                    <i className="fa-solid fa-folder-tree pr-2"></i>
+                    Manage Orders
+                  </Link>
+                </li>
+                <li>
+                  <Link to="admin/review">
+                    <i className="fa-solid fa-comment pr-2"></i>
+                    Manage Reviews
+                  </Link>
+                </li>
+                <li>
+                  <Link to="admin/user">
+                    <i className="fa-solid fa-user-tie pr-2"></i>
+                    Manage user
+                  </Link>
+                </li>
+                <li>
+                  <Link to="admin/products">
+                    <i className="fa-brands fa-product-hunt pr-2"></i>
+                    Manage products
+                  </Link>
+                </li>
+              </>
+            )}
+            {profile?.role === "client" && (
+              <>
+                <li>
+                  <Link to="order">
+                    <i className="fa-solid fa-folder-tree pr-2"></i>
+                    Orders
+                  </Link>
+                </li>
+                <li>
+                  <Link to="review">
+                    <i className="fa-solid fa-comment pr-2"></i>
+                    Reviews
+                  </Link>
+                </li>
+                {/* <li>
+                  <Link to="admin/user">
+                    <i className="fa-solid fa-user-tie pr-2"></i>
+                    Manage user
+                  </Link>
+                </li>
+                <li>
+                  <Link to="admin/products">
+                    <i className="fa-solid fa-user-tie pr-2"></i>
+                    Manage products
+                  </Link>
+                </li> */}
+              </>
+            )}
           </ul>
         </div>
       </div>

@@ -10,12 +10,18 @@ import {
   useAuthState,
 } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
+let counter = 0;
 const Register = () => {
   const navigate = useNavigate();
+  const [profileData, setProfileData] = useState({});
+
+  
+
   const [muser, mloading, merror] = useAuthState(auth);
   const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, user, loading, uerror] =
     useCreateUserWithEmailAndPassword(auth);
   const [sendEmailVerification] = useSendEmailVerification(auth);
 
@@ -28,61 +34,77 @@ const Register = () => {
   const [updateProfile, updating, perror] = useUpdateProfile(auth);
 
   const onSubmit = async (data) => {
+    counter = 0;
+    setProfileData(data)
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
-    if (error) {
-      toast.error(error.message);
-    } else {
-      await fetch("http://localhost:5000/user", {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ ...data, role: "client" }),
-      })
-        .then((res) => res.json())
-      toast.success(`successfully create a user ${user.user.email}`);
-      toast.success(
-        <div>
-          <Link to="/login">Login</Link>
-        </div>
-      );
-      if (!user?.user?.emailVerified) {
-        toast.warning(
-          <div
-            className="btn btn-sm "
-            onClick={async () => {
-              await sendEmailVerification();
-              alert("Sent email");
-            }}
-          >
-            Verify email
-          </div>
-        );
-      }
-    }
-    
   };
-  
-  if (guser) {
-    const data = {
-      name: guser.user.displayName,
-      email: guser.user.email,
-      img: guser.user.photoURL,
-      role:'client'
-    };
+  if (uerror && counter === 0) {
+    counter++;
+    toast.error(uerror.message);
+  }
+
+  if (user && counter === 0) {
+    console.log(counter)
+    counter += 1;
+    console.log("hitted");
+    const data = profileData;
+    console.log(data)
+    data.img = `https://ui-avatars.com/api/?background=FF00FF&color=fff&size=328&name=${data.name.replace(
+      " ",
+      "+"
+    )}`;
     fetch("http://localhost:5000/user", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(data),
-    }).then((res) => res.json());
-  }
-  if (user || guser || muser) {
-    navigate("/");
+      body: JSON.stringify({ ...data, role: "client" }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        toast.success(`successfully create a user ${user.user.email}`);
+        if (!user?.user?.emailVerified) {
+          toast.warning(
+            <div
+              className="btn btn-sm "
+              onClick={async () => {
+                await sendEmailVerification();
+                alert("Sent email");
+              }}
+            >
+              Verify email
+            </div>
+          );
+        }
+      });
   }
 
+  if (guser?.user?.email) {
+    fetch(`http://localhost:5000/user/${guser?.user?.email}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status !== "success") {
+          const data = {
+            name: guser.user.displayName,
+            email: guser.user.email,
+            img: guser.user.photoURL,
+            role: "client",
+          };
+          fetch("http://localhost:5000/user", {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }).then((res) => res.json());
+        }
+      });
+  }
+  if (guser || muser || user) {
+    navigate("/");
+    window.location.reload()
+  }
   return (
     <div className="bg-[url('https://i.ibb.co/st6b8gb/image-1.jpg')]">
       <div className="container  mx-auto pt-5">
@@ -96,7 +118,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  class={
+                  className={
                     errors.name
                       ? "input input-bordered input-error w-full "
                       : "input input-bordered input-info w-full "
@@ -112,7 +134,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  class={
+                  className={
                     errors.email
                       ? "input input-bordered input-error w-full "
                       : "input input-bordered input-info w-full "
@@ -128,7 +150,7 @@ const Register = () => {
                 <input
                   type="password"
                   placeholder="Type here"
-                  class={
+                  className={
                     errors.password
                       ? "input input-bordered input-error w-full "
                       : "input input-bordered input-info w-full "

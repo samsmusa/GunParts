@@ -14,10 +14,11 @@ const PostReview = ({ product, refetch }) => {
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
-  const [profile] = useProfile();
+  const profile = useProfile();
 
   const onSubmit = (data) => {
     data.profile = profile;
@@ -35,6 +36,7 @@ const PostReview = ({ product, refetch }) => {
         if (res.status === "success") {
           toast.success("Thanks for review");
           refetch();
+          reset();
         }
       });
     

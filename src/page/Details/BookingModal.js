@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -8,6 +8,7 @@ var date =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 const BookingModal = ({ user, profile, item, product, setItem }) => {
+  const closeRef = useRef()
   const {
     register,
     handleSubmit,
@@ -37,8 +38,10 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
         if (res.status === "success") {
           toast.success("order successfully Confirmed");
           setItem([]);
+
         }
       });
+    closeRef.current.click();
   };
   return (
     <div>
@@ -46,6 +49,7 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <label
+            ref={closeRef}
             htmlFor="order-modal"
             id="close-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -64,7 +68,7 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
                 <tbody>
                   {item.length !== 0 &&
                     item.map((e, index) => (
-                      <tr className="border border-gray-500  border-x-0 ">
+                      <tr key={index+'dfes'} className="border border-gray-500  border-x-0 ">
                         <th className="px-4">{index + 1}</th>
                         <th className="px-4">{e.color}</th>
                         <th className="px-11">{e.size}</th>

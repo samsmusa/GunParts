@@ -2,7 +2,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import auth from "../firebase.init";
 
-const LoadReviews = (url, def) => {
+const LoadData = (url, def) => {
   const [user] = useAuthState(auth)
   const {
     isLoading,
@@ -19,4 +19,4 @@ const LoadReviews = (url, def) => {
   return {isLoading, error, data, refetch}
 }
 
-export default LoadReviews;
+export default LoadData;

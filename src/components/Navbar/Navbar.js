@@ -5,20 +5,16 @@ import auth from "../../firebase.init";
 import { signOut } from 'firebase/auth';
 import { useState } from "react";
 import { useEffect } from "react";
+import useProfile from "../../hooks/useProfile";
+import Progress from "../Progress/Progress";
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
 
-  const [profile, setProfile] = useState({});
-  useEffect(() => {
-    fetch(`http://localhost:5000/user/${user?.email}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.status) {
-          setProfile(res);
-        }
-      });
-  }, [user]);
+  const profile = useProfile();
+
+  
+
   return (
     <div className="navbar bg-gradient-to-r from-black via-slate-300 to-black text-white ">
       <div className="flex-1">

@@ -1,18 +1,24 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import LoadReviews from "../../hooks/LoadRevies";
+import LoadData from "../../hooks/LoadData";
 import ReviewCard from "../Details/ReviewCard";
 import HomeCart from "../Shared/HomeCart";
 import Carusel from "./Carusel/Carusel";
 const Home = () => {
   const [serveice, setService] = useState([]);
-  const { data: reviews } = LoadReviews("http://localhost:5000/reviews", 'homeReview');
+  const { data: reviews } = LoadData(
+    "http://localhost:5000/reviews",
+    "homeReview"
+  );
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((res) => setService(res));
   }, []);
+  // if (reviews) {
+  //   setAllReviews(reviews.reverse());
+  // }
 
   return (
     <div className="bg-transparent font-cursive">
@@ -166,7 +172,7 @@ const Home = () => {
         <div className="container grid grid-cols-1 md:grid-cols-8 mx-auto gap-4 pt-4">
           {reviews &&
             reviews.slice(0, 8).map((e) => (
-              <div key={e._id+'rts'} className="col-span-2">
+              <div key={e._id + "rts"} className="col-span-2">
                 <ReviewCard data={e} ishome={true} />
               </div>
             ))}
