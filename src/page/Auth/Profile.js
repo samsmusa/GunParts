@@ -40,10 +40,11 @@ const Profile = () => {
       }
 
       const { image, ...obj } = data;
-      fetch("http://localhost:5000/user", {
+      fetch("https://fathomless-wave-64649.herokuapp.com/user", {
         method: "PUT",
         headers: {
           "content-type": "application/json",
+          authorization: localStorage.getItem("accessToken"),
         },
         body: JSON.stringify(obj),
       }).then((res) => res.json());
@@ -97,17 +98,7 @@ const Profile = () => {
                     {...register("job")}
                   />
                 </p>
-                <p className="font-code pt-2">
-                  <select
-                    defaultValue={profile?.role}
-                    disabled={!isEdit}
-                    className="select-sm mr-3 select bg-base-100"
-                    {...register("role")}
-                  >
-                    <option>client</option>
-                    <option>admin</option>
-                  </select>
-                </p>
+                
               </div>
               <p className="font-code flex flex-row justify-between items-center">
                 <span>

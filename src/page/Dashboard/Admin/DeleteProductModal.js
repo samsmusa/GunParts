@@ -6,30 +6,35 @@ const DeleteProductModal = ({ id, refetch }) => {
   const closeRefmodal = useRef();
 
   const deleteItem = () => {
-    fetch(`http://localhost:5000/product/${id}`, {
+    fetch(`https://fathomless-wave-64649.herokuapp.com/product/${id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
     })
       .then((res) => res.json())
       .then((res) => {
         if (res.status === "success") {
           toast.success("Proudct  successfully Deleted");
-          refetch(); 
+          refetch();
         } else {
           toast.error("somethig error");
-          refetch(); 
+          refetch();
         }
       });
-    
+
     closeRefmodal.current.click();
   };
   return (
     <div>
-      <input type="checkbox" id="product-delete-modal" class="modal-toggle" />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
+      <input
+        type="checkbox"
+        id="product-delete-modal"
+        className="modal-toggle"
+      />
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
           <label
             ref={closeRefmodal}
             htmlFor="product-delete-modal"
@@ -38,10 +43,10 @@ const DeleteProductModal = ({ id, refetch }) => {
           >
             ✕
           </label>
-          <h3 class="font-bold text-lg">Delete item!</h3>
-          <p class="py-4">Want to delete this item ?</p>
-          <div class="modal-action">
-            <label onClick={deleteItem}  class="btn">
+          <h3 className="font-bold text-lg">Delete item!</h3>
+          <p className="py-4">Want to delete this item ?</p>
+          <div className="modal-action">
+            <label onClick={deleteItem} className="btn">
               Ok
             </label>
           </div>

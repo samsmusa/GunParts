@@ -19,6 +19,9 @@ import AdmnReview from "./page/Dashboard/Admin/AdmnReview";
 import Products from "./page/Dashboard/Admin/Products";
 import ProductsView from "./page/Projucts/ProductsView";
 import RequireAuth from "./hooks/RequireAuth";
+import Footer from "./components/Footer/Footer";
+import About from "./page/Blog/About";
+import Blog from "./page/Blog/Blog";
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/products" element={<ProductsView />} />
         <Route path="/product/:id" element={<Details />} />
         <Route path="/login" element={<Login />} />
@@ -70,6 +75,7 @@ function App() {
           />
         </Route>
       </Routes>
+      <Footer />
       <ToastContainer theme="dark" />
     </div>
   );

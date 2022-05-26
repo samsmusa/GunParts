@@ -40,21 +40,23 @@ const Products = () => {
     data: product,
     refetch,
     isLoading,
-  } = LoadData("http://localhost:5000/products", ["adminProduct"]);
-  const { data: orderes } = LoadData("http://localhost:5000/orders", [
-    "adminorders",
+  } = LoadData("https://fathomless-wave-64649.herokuapp.com/products", [
+    "adminProduct",
   ]);
-  // console.log(orderes)
+  const { data: orderes } = LoadData(
+    "https://fathomless-wave-64649.herokuapp.com/orders",
+    ["adminorders"]
+  );
 
-  const { data: reviews } = LoadData("http://localhost:5000/reviews", [
-    "adminreviews",
-  ]);
+  const { data: reviews } = LoadData(
+    "https://fathomless-wave-64649.herokuapp.com/reviews",
+    ["adminreviews"]
+  );
 
   useEffect(() => {
     if (reviews && product) {
       const datasRating = product.map((e) => getOccurrencear(reviews, e._id));
       const datasOrder = product.map((e) => getOccurrencear(orderes, e._id));
-      console.log(datasOrder);
 
       setSoldCount(datasOrder.map((e) => getsold(e.data, e._id)));
 
@@ -139,7 +141,7 @@ const Products = () => {
                   <th className="">{index + 1}</th>
                   <th className="">
                     <div
-                      class="tooltip tooltip-info  tooltip-bottom hover:z-50"
+                      className="tooltip tooltip-info  tooltip-bottom hover:z-50"
                       data-tip={e?.name}
                     >
                       {e?.name.slice(0, 10)}

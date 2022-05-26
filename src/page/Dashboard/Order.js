@@ -8,10 +8,22 @@ import Progress from "../../components/Progress/Progress";
 import auth from "../../firebase.init";
 import LoadData from "../../hooks/LoadData";
 import OrderModal from "./OrderModal";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import PaymentCard from "./Payment/PaymentCard";
+import ConfirmModal from "./Payment/ConfirmModal";
+import { useRef } from "react";
 
 const Order = () => {
+  const openRef = useRef();
+  const [transationId, setTransationId] = useState("");
+
+  const stripePromise = loadStripe(
+    "pk_test_51L3OIOBhVNHGopJmQyHAO01pO45wImUrcmZcHgXyNhDMLsxUNuiwP2trJ6TuPMcoqyAHMdOuXm4TB8jpXKNq5mku00qlaqYvKB"
+  );
   const [user, loading, autherror] = useAuthState(auth);
   const [order, setOrder] = useState([]);
+  const [orderPayment, setOrderPayment] = useState({});
   const [processing, setprocessing] = useState([]);
   const [complete, setComplete] = useState([]);
   const [canceled, setCanceled] = useState([]);
@@ -28,17 +40,21 @@ const Order = () => {
     refetch,
     isLoading,
   } = LoadData(
-    `http://localhost:5000/orders/?email=${user?.email}&status=all`,
-    ["userOrder", user?.email]
+    `https://fathomless-wave-64649.herokuapp.com/orders/?email=${user?.email}&status=all`,
+    ["userOrder", user?.email],
+    {
+      enabled: !!user?.email,
+    }
   );
 
   const [lot, setlot] = useState([]);
   const actionItem = (product, status) => {
     product.status = status;
-    fetch("http://localhost:5000/order", {
+    fetch("https://fathomless-wave-64649.herokuapp.com/order", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify(product),
     })
@@ -57,7 +73,7 @@ const Order = () => {
       setComplete(all.filter((e) => e.status === "complete"));
       setpending(all.filter((e) => e.status === "pending"));
     }
-  }, [all]);
+  }, [all, transationId]);
   const classCreate = (status) => {
     let classname;
     switch (status) {
@@ -197,19 +213,22 @@ const Order = () => {
                   <th className="">{e.status}</th>
                   <th className="">
                     {e.status === "pending" ? (
-                      <button
-                        onClick={() => actionItem(e, "processing")}
+                      <label
+                        onClick={() => setOrderPayment(e)}
                         className="btn btn-sm bg-green  px-4 p-0 m-0"
-                        type="submit"
+                        htmlFor="payment-modal"
                       >
                         <i className="fa-solid fa-sack-dollar text-black"></i>
-                      </button>
+                      </label>
+                    ) : e.status === "canceled" ? (
+                      "unpaid"
                     ) : (
-                      "paid"
+                      "paids"
                     )}
                   </th>
                   <th className="">
                     <button
+                      disabled={e.status !== "pending"}
                       onClick={() => actionItem(e, "canceled")}
                       className="btn btn-sm bg-base-100  px-4 p-0 m-0"
                       type="submit"
@@ -223,6 +242,23 @@ const Order = () => {
         </table>
       </div>
       <OrderModal data={lot}></OrderModal>
+      <Elements stripe={stripePromise}>
+        <PaymentCard
+          data={orderPayment}
+          openRef={openRef}
+          setTransationId={setTransationId}
+          refetch={refetch}
+        />
+      </Elements>
+
+      <label
+        ref={openRef}
+        htmlFor="confirm-modal"
+        className="hidden btn modal-button"
+      >
+        open modal
+      </label>
+      <ConfirmModal transationId={transationId} />
     </div>
   );
 };

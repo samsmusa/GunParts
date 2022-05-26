@@ -8,7 +8,7 @@ var date =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 const BookingModal = ({ user, profile, item, product, setItem }) => {
-  const closeRef = useRef()
+  const closeRef = useRef();
   const {
     register,
     handleSubmit,
@@ -26,10 +26,11 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
     data.status = "pending";
     data.email = profile.email;
 
-    fetch("http://localhost:5000/order", {
+    fetch("https://fathomless-wave-64649.herokuapp.com/order", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify(data),
     })
@@ -38,7 +39,6 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
         if (res.status === "success") {
           toast.success("order successfully Confirmed");
           setItem([]);
-
         }
       });
     closeRef.current.click();
@@ -68,7 +68,10 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
                 <tbody>
                   {item.length !== 0 &&
                     item.map((e, index) => (
-                      <tr key={index+'dfes'} className="border border-gray-500  border-x-0 ">
+                      <tr
+                        key={index + "dfes"}
+                        className="border border-gray-500  border-x-0 "
+                      >
                         <th className="px-4">{index + 1}</th>
                         <th className="px-4">{e.color}</th>
                         <th className="px-11">{e.size}</th>

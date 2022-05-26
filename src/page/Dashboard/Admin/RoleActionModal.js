@@ -7,18 +7,19 @@ const RoleActionModal = ({ data, refetch }) => {
 
   const deleteItem = () => {
     const { _id, ...user } = data;
-    let role = 'client';
+    let role = "client";
     if (user?.role === "admin") {
-      user.role = "client"
+      user.role = "client";
       role = "client";
     } else {
       user.role = "admin";
       role = "admin";
     }
-    fetch("http://localhost:5000/user", {
+    fetch("https://fathomless-wave-64649.herokuapp.com/user", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify(user),
     })
@@ -37,10 +38,10 @@ const RoleActionModal = ({ data, refetch }) => {
   };
   return (
     <div>
-      <input type="checkbox" id="user-action-modal" class="modal-toggle" />
-      <div class="modal  modal-bottom sm:modal-middle">
+      <input type="checkbox" id="user-action-modal" className="modal-toggle" />
+      <div className="modal  modal-bottom sm:modal-middle">
         <div
-          class={
+          className={
             data?.role === "client"
               ? "modal-box bg-warning text-black"
               : "modal-box"
@@ -54,19 +55,19 @@ const RoleActionModal = ({ data, refetch }) => {
           >
             ✕
           </label>
-          <h3 class="font-bold text-lg">
+          <h3 className="font-bold text-lg">
             {data?.role === "admin"
               ? `Want to make Normal user (${data?.name}) ?`
               : `Want to make Admin user (${data?.name}) ?`}
           </h3>
-          <div class="avatar py-4">
-            <div class="w-24 rounded-full">
+          <div className="avatar py-4">
+            <div className="w-24 rounded-full">
               <img src="https://api.lorem.space/image/face?hash=92310" />
             </div>
           </div>
-          <p class="">{data?.email}</p>
-          <div class="modal-action">
-            <label onClick={deleteItem} class="btn">
+          <p className="">{data?.email}</p>
+          <div className="modal-action">
+            <label onClick={deleteItem} className="btn">
               Ok
             </label>
           </div>

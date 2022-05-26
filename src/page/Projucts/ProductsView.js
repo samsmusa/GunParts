@@ -8,14 +8,16 @@ import ProductCard from "./ProductCard";
 const ProductsView = () => {
   const [rated, setRated] = useState([]);
   const { data: products, refetch } = LoadData(
-    "http://localhost:5000/products",
+    "https://fathomless-wave-64649.herokuapp.com/products",
     ["allProducts"]
   );
   const {
     data: reviews,
     refetch: refetch2,
     isLoading,
-  } = LoadData("http://localhost:5000/reviews", ["allreviews"]);
+  } = LoadData("https://fathomless-wave-64649.herokuapp.com/reviews", [
+    "allreviews",
+  ]);
   useEffect(() => {
     if (reviews) {
       setRated(

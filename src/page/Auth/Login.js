@@ -11,6 +11,11 @@ import {
 import { toast } from "react-toastify";
 import useProfile from "../../hooks/useProfile";
 import LoadData from "../../hooks/LoadData";
+import Progress from "../../components/Progress/Progress";
+import { useState } from "react";
+import Token from "../../hooks/Token";
+
+var counter = 0;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +24,7 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [sendEmailVerification] = useSendEmailVerification(auth);
+  const [emailAcc, setEmailAcc] = useState("");
 
   const {
     register,
@@ -29,15 +35,48 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     await signInWithEmailAndPassword(data.email, data.password);
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success(`successfully create a user ${user.user.email}`);
-      toast.success(
-        <div>
-          <Link to="/login">Login</Link>
-        </div>
-      );
+    setEmailAcc(data.email);
+    counter = 0;
+  };
+
+  if (error && counter === 0) {
+    counter++;
+    toast.error(error.message);
+  }
+
+  if (user && counter === 0) {
+    Token(emailAcc);
+  }
+  if (guser?.user?.email) {
+    Token(guser?.user?.email);
+    fetch(
+      `https://fathomless-wave-64649.herokuapp.com/user/${guser?.user?.email}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status !== "success") {
+          const data = {
+            name: guser.user.displayName,
+            email: guser.user.email,
+            img: guser.user.photoURL,
+            role: "client",
+          };
+          fetch("https://fathomless-wave-64649.herokuapp.com/user", {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }).then((res) => res.json());
+        }
+      });
+  }
+
+  if (user || guser || muser) {
+    if (counter === 0) {
+      counter += 1;
+      toast.success(`successfully login a user`);
+
       if (!user?.user?.emailVerified) {
         toast.warning(
           <div
@@ -52,30 +91,7 @@ const Login = () => {
         );
       }
     }
-  };
-  if (guser?.user?.email) {
-    fetch(`http://localhost:5000/user/${guser?.user?.email}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.status !== "success") {
-          const data = {
-            name: guser.user.displayName,
-            email: guser.user.email,
-            img: guser.user.photoURL,
-            role: "client",
-          };
-          fetch("http://localhost:5000/user", {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }).then((res) => res.json());
-        }
-      });
-  }
 
-  if (user || guser || muser) {
     navigate("/");
   }
 

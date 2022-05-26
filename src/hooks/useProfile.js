@@ -7,7 +7,7 @@ import LoadData from "./LoadData";
 const useProfile = () => {
   const [user] = useAuthState(auth);
   const { data, refetch } = LoadData(
-    `http://localhost:5000/user/${user?.email}`,
+    `https://fathomless-wave-64649.herokuapp.com/user/${user?.email}`,
     ["userProfile", user?.email]
   );
   return data?.data;

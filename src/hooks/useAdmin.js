@@ -7,7 +7,7 @@ const useAdmin = (user) => {
   useEffect(() => {
     const email = user?.email;
     if (email) {
-      fetch(`http://localhost:5000/user/${email}`, {
+      fetch(`https://fathomless-wave-64649.herokuapp.com/user/${email}`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
@@ -17,7 +17,7 @@ const useAdmin = (user) => {
         .then((res) => res.json())
         .then((res) => {
           if (res.status === "success") {
-            setuserExist(true)
+            setuserExist(true);
             if (res.data.role === "admin") {
               setAdmin(true);
               setAdminLoading(false);

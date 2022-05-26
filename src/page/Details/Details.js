@@ -17,14 +17,16 @@ const Details = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   useEffect(() => {
-    fetch(`http://localhost:5000/product/${id}`)
+    fetch(`https://fathomless-wave-64649.herokuapp.com/product/${id}`)
       .then((res) => res.json())
       .then((res) => setProduct(res));
   }, [id]);
 
   const [related, setRelated] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/products/?parts=${product.partsType}`)
+    fetch(
+      `https://fathomless-wave-64649.herokuapp.com/products/?parts=${product.partsType}`
+    )
       .then((res) => res.json())
       .then((res) => setRelated(res));
   }, [product]);
@@ -51,11 +53,11 @@ const Details = () => {
     error,
     data: reviews,
     refetch,
-  } = LoadData(`http://localhost:5000/reviews/?product=${id}`, [
-    "reviewData",
-    id,
-  ]);
-  if (!profile || isLoading) {
+  } = LoadData(
+    `https://fathomless-wave-64649.herokuapp.com/reviews/?product=${id}`,
+    ["reviewData", id]
+  );
+  if (isLoading) {
     return <Progress />;
   }
   return (
@@ -89,8 +91,15 @@ const Details = () => {
               <p>cost: {product.cost}</p>
             </div>
 
+            {!profile && (
+              <p className="text-xl text-warning">
+                please login to make a order
+              </p>
+            )}
+
             <div className="pt-4">
               <p>Make a Order</p>
+
               {profile?.role !== "admin" ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <table className="table-fixed">
@@ -100,8 +109,9 @@ const Details = () => {
                           <select
                             className="select-sm select max-w-xs bg-transparent"
                             {...register("color", { required: true })}
+                            defaultValue={"black"}
                           >
-                            <option selected>Black</option>
+                            <option>Black</option>
                             <option>Gray</option>
                             <option>Desert</option>
                           </select>
@@ -110,8 +120,9 @@ const Details = () => {
                           <select
                             className="select-sm select max-w-xs bg-transparent"
                             {...register("size", { required: true })}
+                            defaultValue={"Long"}
                           >
-                            <option selected>Long</option>
+                            <option>Long</option>
                             <option>Short</option>
                           </select>
                         </th>
@@ -119,8 +130,9 @@ const Details = () => {
                           <select
                             className="select-sm select max-w-xs bg-transparent"
                             {...register("delivery", { required: true })}
+                            defaultValue={"Regular"}
                           >
-                            <option selected>Regular</option>
+                            <option>Regular</option>
                             <option>Express</option>
                           </select>
                         </th>
@@ -190,7 +202,7 @@ const Details = () => {
                     {(item.length * parseFloat(product.cost)).toFixed(2)}
                   </span>
                   <label
-                    disabled={item.length === 0}
+                    disabled={item.length === 0 || !profile}
                     htmlFor="order-modal"
                     className=" mx-2 btn btn-sm  btn-success cbtn modal-button"
                   >
@@ -208,8 +220,25 @@ const Details = () => {
             <p className="font-cursive">{product.description}</p>
             <div className="divider"></div>
           </div>
-
-          <div className="col-span-3 text-left mb-4">
+          {profile?.role === "admin" && (
+            <p className="text-left text-warning">
+              {" "}
+              Admin cannot post a review
+            </p>
+          )}
+          {!profile && (
+            <p className="text-left text-warning">
+              {" "}
+              Please login to post a review!
+            </p>
+          )}
+          <div
+            className={
+              profile?.role === "admin" || !profile
+                ? " opacity-50 col-span-3 text-left mb-4"
+                : "col-span-3 text-left mb-4"
+            }
+          >
             <h3 className="font-cursive text-2xl">Post a Review</h3>
             <div className="divider col-span-3"></div>
             <PostReview product={product} refetch={refetch} />

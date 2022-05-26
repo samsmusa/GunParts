@@ -11,13 +11,12 @@ import {
 } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import Token from "../../hooks/Token";
 
 let counter = 0;
 const Register = () => {
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({});
-
-  
 
   const [muser, mloading, merror] = useAuthState(auth);
   const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
@@ -35,9 +34,12 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     counter = 0;
-    setProfileData(data)
+    setProfileData(data);
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
+    // if (!uerror) {
+    //   Token(data.email);
+    // };
   };
   if (uerror && counter === 0) {
     counter++;
@@ -45,19 +47,18 @@ const Register = () => {
   }
 
   if (user && counter === 0) {
-    console.log(counter)
+    Token(profileData.email);
     counter += 1;
-    console.log("hitted");
     const data = profileData;
-    console.log(data)
     data.img = `https://ui-avatars.com/api/?background=FF00FF&color=fff&size=328&name=${data.name.replace(
       " ",
       "+"
     )}`;
-    fetch("http://localhost:5000/user", {
+    fetch("https://fathomless-wave-64649.herokuapp.com/user", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({ ...data, role: "client" }),
     })
@@ -81,7 +82,10 @@ const Register = () => {
   }
 
   if (guser?.user?.email) {
-    fetch(`http://localhost:5000/user/${guser?.user?.email}`)
+    Token(guser?.user?.email);
+    fetch(
+      `https://fathomless-wave-64649.herokuapp.com/user/${guser?.user?.email}`
+    )
       .then((res) => res.json())
       .then((res) => {
         if (res.status !== "success") {
@@ -91,19 +95,21 @@ const Register = () => {
             img: guser.user.photoURL,
             role: "client",
           };
-          fetch("http://localhost:5000/user", {
+          fetch("https://fathomless-wave-64649.herokuapp.com/user", {
             method: "PUT",
             headers: {
               "content-type": "application/json",
+              authorization: localStorage.getItem("accessToken"),
             },
             body: JSON.stringify(data),
           }).then((res) => res.json());
         }
       });
   }
+
   if (guser || muser || user) {
     navigate("/");
-    window.location.reload()
+    // window.location.reload();
   }
   return (
     <div className="bg-[url('https://i.ibb.co/st6b8gb/image-1.jpg')]">

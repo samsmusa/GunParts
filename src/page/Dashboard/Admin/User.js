@@ -17,7 +17,7 @@ const User = () => {
     data: users,
     isLoading,
     refetch,
-  } = LoadData("http://localhost:5000/user", ["allUser"]);
+  } = LoadData("https://fathomless-wave-64649.herokuapp.com/user", ["allUser"]);
 
   useEffect(() => {
     if (users?.data) {
@@ -106,7 +106,7 @@ const User = () => {
                   <th className="">{e?.role}</th>
                   <th className="">
                     <div
-                      class={
+                      className={
                         e?.email === user?.email
                           ? "tooltip tooltip-info  tooltip-left"
                           : e?.role === "admin"
@@ -128,7 +128,7 @@ const User = () => {
                         className="btn mx-1 btn-sm "
                       >
                         <i
-                          class={
+                          className={
                             e?.role === "admin"
                               ? "fa-solid fa-toolbox text-success"
                               : "fa-solid fa-toolbox"

@@ -33,10 +33,11 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
 
     const { image, ...body } = data;
 
-    fetch("http://localhost:5000/product", {
+    fetch("https://fathomless-wave-64649.herokuapp.com/product", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify(body),
     })

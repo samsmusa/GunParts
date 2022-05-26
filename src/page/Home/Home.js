@@ -1,18 +1,20 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import LoadData from "../../hooks/LoadData";
 import ReviewCard from "../Details/ReviewCard";
 import HomeCart from "../Shared/HomeCart";
 import Carusel from "./Carusel/Carusel";
 const Home = () => {
   const [serveice, setService] = useState([]);
+
   const { data: reviews } = LoadData(
-    "http://localhost:5000/reviews",
-    "homeReview"
+    "https://fathomless-wave-64649.herokuapp.com/reviews",
+    ["homeReviews"]
   );
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://fathomless-wave-64649.herokuapp.com/products")
       .then((res) => res.json())
       .then((res) => setService(res));
   }, []);
@@ -86,23 +88,26 @@ const Home = () => {
           <div className="md:col-span-2">
             <h3 className="font-cursive text-5xl text-white">Who we are</h3>
             <p className="text-left leading-relaxed text-xl">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries,
+              We serve the gun community by providing the largest assortment of
+              hard-to-find firearms parts and accessories. Our specialty resides
+              in acquiring and selling modern and obsolete original and
+              replacement gun parts from all major manufacturers.
               <span className="block py-3 border-2 pl-4 border-y-0 border-sky-500 text-white">
-                but also the leap into electronic typesetting, remaining
-                essentially unchanged. It was popularised in the 1960s with the
-                release of Letraset sheets containing Lorem Ipsum passages,
+                We also provide the largest collection of gun schematics
+                available. PistolBD Gun Parts Corporation is located at the foot
+                of the scenic Catskill Mountains and supplies vintage and
+                obsolete gun parts to the U.S.and Canada.
               </span>
-              and more recently with desktop publishing software like Aldus
-              PageMaker including versions of Lorem Ipsum.
+              We support America’s firearm legacy by supplying the parts that
+              fix, restore, improve, and complete every gun, regardless of when
+              or where it was made.
             </p>
             <div className="flex flex-row content-start">
-              <button className="transition duration-700 ease-in-out btn-primary btn-md cbtn ">
-                Read More...
-              </button>
+              <Link to="/about">
+                <button className="transition duration-700 ease-in-out btn-primary btn-md cbtn ">
+                  Read More...
+                </button>
+              </Link>
             </div>
           </div>
           <div className="md:col-span-1">

@@ -24,7 +24,7 @@ const Reviews = () => {
     formState: { errors },
   } = useForm();
   const { data: item, refetch } = LoadData(
-    `http://localhost:5000/reviews/?email=${user?.email}`,
+    `https://fathomless-wave-64649.herokuapp.com/reviews/?email=${user?.email}`,
     ["userReview", user?.email]
   );
 
@@ -123,7 +123,7 @@ const Reviews = () => {
                   <th className="">{index + 1}</th>
                   <th className=" text-xs">
                     <div
-                      class="tooltip tooltip-info  tooltip-bottom hover:z-50"
+                      className="tooltip tooltip-info  tooltip-bottom hover:z-50"
                       data-tip={e?.product?.name}
                     >
                       {e?.product?.name.slice(0, 10)}

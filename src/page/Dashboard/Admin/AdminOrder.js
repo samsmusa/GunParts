@@ -21,15 +21,19 @@ const AdminOrder = () => {
     data: all,
     refetch,
     isLoading,
-  } = LoadData("http://localhost:5000/orders", ["AdminuserOrder", user?.email]);
+  } = LoadData("https://fathomless-wave-64649.herokuapp.com/orders", [
+    "AdminuserOrder",
+    user?.email,
+  ]);
 
   const [lot, setlot] = useState([]);
   const actionItem = (product, status) => {
     product.status = status;
-    fetch("http://localhost:5000/order", {
+    fetch("https://fathomless-wave-64649.herokuapp.com/order", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer `,
       },
       body: JSON.stringify(product),
     })
@@ -124,17 +128,26 @@ const AdminOrder = () => {
         </span>
       </p>
       <div className="flex pt-1 ">
-        <select className="select-sm mr-3 select bg-base-100">
-          <option selected>black</option>
+        <select
+          className="select-sm mr-3 select bg-base-100"
+          defaultValue={"black"}
+        >
+          <option>gblack</option>
           <option>gray</option>
           <option>desert</option>
         </select>
-        <select className="select-sm mr-3 select bg-base-100">
-          <option selected>long</option>
+        <select
+          className="select-sm mr-3 select bg-base-100"
+          defaultValue={"long"}
+        >
+          <option>long</option>
           <option>small</option>
         </select>
-        <select className="select-sm mr-3 select bg-base-100">
-          <option selected>Regular</option>
+        <select
+          className="select-sm mr-3 select bg-base-100"
+          defaultValue={"Refular"}
+        >
+          <option>Regular</option>
           <option>Express</option>
         </select>
       </div>
@@ -177,21 +190,33 @@ const AdminOrder = () => {
                   </th>
                   <th className="">
                     {e.status === "processing" && (
-                      <button
-                        onClick={() => actionItem(e, "complete")}
-                        className="btn btn-sm bg-base-100 bg-green  px-4 p-0 m-0"
-                        type="submit"
+                      <div
+                        className="tooltip tooltip-info  tooltip-top"
+                        data-tip="confirm ?"
                       >
-                        <i className="fa-solid text-black fa-check"></i>
-                      </button>
+                        <button
+                          onClick={() => actionItem(e, "complete")}
+                          className="btn btn-sm bg-base-100 bg-green  mx-1 p-0 m-0 px-2"
+                          type="submit"
+                        >
+                          <i className="fa-solid text-black fa-check"></i>
+                        </button>
+                      </div>
                     )}
-                    <button
-                      onClick={() => actionItem(e, "canceled")}
-                      className="btn btn-sm bg-base-100  px-4 p-0 m-0"
-                      type="submit"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
+                    {e.status === "processing" && (
+                      <div
+                        className="tooltip tooltip-error  tooltip-top"
+                        data-tip="calcel ?"
+                      >
+                        <button
+                          onClick={() => actionItem(e, "canceled")}
+                          className="btn btn-sm bg-base-100  mx-1 p-0 m-0 px-2"
+                          type="submit"
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    )}
                   </th>
                 </tr>
               ))}

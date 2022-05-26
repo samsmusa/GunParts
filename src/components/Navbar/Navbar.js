@@ -26,6 +26,9 @@ const Navbar = () => {
         <Link className="pr-2" to="/">
           <button className="btn btn-sm cbtn btn-outline">Home</button>
         </Link>
+        <Link className="pr-2" to="/about">
+          <button className="btn btn-sm cbtn btn-outline">About</button>
+        </Link>
         <Link className="pr-2" to="/blog">
           <button className="btn btn-sm cbtn btn-outline">blog</button>
         </Link>
@@ -39,7 +42,7 @@ const Navbar = () => {
           <div className="dropdown dropdown-end">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={profile?.img} alt='avatar'/>
+                <img src={profile?.img} alt="avatar" />
               </div>
             </label>
             <ul
@@ -53,10 +56,20 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard">dashboard</Link>
+                <Link
+                  to={
+                    profile?.role === "admin"
+                      ? "dashboard/admin/order"
+                      : "dashboard"
+                  }
+                >
+                  dashboard
+                </Link>
               </li>
               <li>
-                <span onClick={() => signOut(auth)}>Logout({user?.displayName})</span>
+                <span onClick={() => signOut(auth)}>
+                  Logout({user?.displayName})
+                </span>
               </li>
             </ul>
           </div>

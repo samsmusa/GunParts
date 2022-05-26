@@ -23,9 +23,8 @@ const AdmnReview = () => {
     data: item,
     refetch,
     isLoading,
-  } = LoadData(`http://localhost:5000/reviews/?email=${user?.email}`, [
-    "userReview",
-    user?.email,
+  } = LoadData(`https://fathomless-wave-64649.herokuapp.com/reviews`, [
+    "adminReview",
   ]);
 
   useEffect(() => {
@@ -123,7 +122,7 @@ const AdmnReview = () => {
                   <th className="">{index + 1}</th>
                   <th className=" text-xs">
                     <div
-                      class="tooltip tooltip-info  tooltip-bottom hover:z-50"
+                      className="tooltip tooltip-info  tooltip-bottom hover:z-50"
                       data-tip={e?.product?.name}
                     >
                       {e?.product.name.slice(0, 10) + "..."}

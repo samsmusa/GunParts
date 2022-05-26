@@ -1,14 +1,12 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import useProfile from '../../hooks/useProfile';
-
+import React from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import useProfile from "../../hooks/useProfile";
 
 var today = new Date();
 
 var date =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-
 
 const PostReview = ({ product, refetch }) => {
   const {
@@ -24,10 +22,11 @@ const PostReview = ({ product, refetch }) => {
     data.profile = profile;
     data.product = product;
     data.date = date;
-    fetch("http://localhost:5000/review", {
+    fetch("https://fathomless-wave-64649.herokuapp.com/review", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify(data),
     })
@@ -39,7 +38,6 @@ const PostReview = ({ product, refetch }) => {
           reset();
         }
       });
-    
   };
 
   return (
@@ -53,6 +51,7 @@ const PostReview = ({ product, refetch }) => {
       <div className="w-full ml-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <textarea
+            disabled={profile?.role === "admin" || !profile}
             placeholder="say somethig"
             className={
               errors.comment
@@ -64,30 +63,35 @@ const PostReview = ({ product, refetch }) => {
           <div className="flex justify-between">
             <div className="rating">
               <input
+                disabled={profile?.role === "admin" || !profile}
                 type="radio"
                 className="mask mask-star"
                 value="1"
                 {...register("rating", { required: true })}
               />
               <input
+                disabled={profile?.role === "admin" || !profile}
                 type="radio"
                 className="mask mask-star"
                 value="2"
                 {...register("rating", { required: true })}
               />
               <input
+                disabled={profile?.role === "admin" || !profile}
                 type="radio"
                 className="mask mask-star"
                 value="3"
                 {...register("rating", { required: true })}
               />
               <input
+                disabled={profile?.role === "admin" || !profile}
                 type="radio"
                 className="mask mask-star"
                 value="4"
                 {...register("rating", { required: true })}
               />
               <input
+                disabled={profile?.role === "admin" || !profile}
                 type="radio"
                 className="mask mask-star"
                 value="5"
@@ -99,7 +103,11 @@ const PostReview = ({ product, refetch }) => {
               )}
             </div>
             <div>
-              <button type="submit" className="btn btn-sm">
+              <button
+                disabled={profile?.role === "admin" || !profile}
+                type="submit"
+                className="btn btn-sm"
+              >
                 post
               </button>
             </div>
