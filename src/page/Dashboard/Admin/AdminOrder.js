@@ -186,7 +186,7 @@ const AdminOrder = () => {
                   <th className="">{e.total}</th>
                   <th className="">{e.status}</th>
                   <th className="">
-                    {e.status === "pending" ? "unpaid" : "paid"}
+                    {e.status === "processing" ? "paid" : "unpaid"}
                   </th>
                   <th className="">
                     {e.status === "processing" && (
