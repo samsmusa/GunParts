@@ -121,7 +121,7 @@ const PaymentCard = ({ data, openRef, setTransationId, refetch }) => {
     <div>
       <input type="checkbox" id="payment-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box relative bg-slate-100 w-8/12 max-w-5xl">
+        <div className="modal-box relative w-8/12 max-w-5xl">
           {isLoading && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
               <Progress />

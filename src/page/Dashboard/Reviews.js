@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import LoadData from "../../hooks/LoadData";
 import CommentModal from "./CommentModal";
@@ -38,6 +39,25 @@ const Reviews = () => {
       setFive(item.filter((e) => e.rating === "5"));
     }
   }, [item]);
+
+  function deleteItem(id) {
+    fetch(`https://fathomless-wave-64649.herokuapp.com/review/${id}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 'success') {
+          toast.success("successfully deleted")
+          refetch();
+        } else {
+          toast.error('something error')
+        }
+      });
+  }
   return (
     <div className=" w-full">
       <div className="flex justify-between">
