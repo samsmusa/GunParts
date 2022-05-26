@@ -176,8 +176,8 @@ const Reviews = () => {
                   </th>
                   <th className="px-4">
                     <button
+                      onClick={() => deleteItem(e._id)}
                       className="btn bg-base-100 crbtn px-4 p-0 m-0"
-                      type="submit"
                     >
                       <i className="fa-solid fa-trash"></i>
                     </button>
