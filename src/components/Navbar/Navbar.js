@@ -60,7 +60,7 @@ const Navbar = () => {
                   to={
                     profile?.role === "admin"
                       ? "dashboard/admin/order"
-                      : "dashboard"
+                      : "dashboard/order"
                   }
                 >
                   dashboard
