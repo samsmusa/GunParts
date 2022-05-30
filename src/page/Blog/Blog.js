@@ -9,7 +9,7 @@ const Blog = () => {
     switch (int) {
       case 1:
         element = (
-          <div className="card content-center card-compact w-8/12 bg-base-100 shadow-xl">
+          <div className="card content-center card-compact w-8/12 bg-gray-800 shadow-xl">
             <div className="card-body">
               <h2 className="card-title font-roboto text-4xl">
                 How will you improve the performance of a React Application?
@@ -34,7 +34,7 @@ const Blog = () => {
         break;
       case 2:
         element = element = (
-          <div className="card content-center card-compact w-8/12 bg-base-100 shadow-xl">
+          <div className="card content-center card-compact w-8/12 bg-gray-800 shadow-xl">
             <div className="card-body">
               <h2 className="card-title font-roboto text-4xl">
                 What are the different ways to manage a state in a React
@@ -57,7 +57,7 @@ const Blog = () => {
         break;
       case 3:
         element = element = (
-          <div className="card content-center card-compact w-8/12 bg-base-100 shadow-xl">
+          <div className="card content-center card-compact w-8/12 bg-gray-800 shadow-xl">
             <div className="card-body">
               <h2 className="card-title font-roboto text-4xl">
                 How does prototypical inheritance work?
@@ -83,7 +83,7 @@ const Blog = () => {
         break;
       case 4:
         element = element = (
-          <div className="card content-center card-compact w-8/12 bg-base-100 shadow-xl">
+          <div className="card content-center card-compact w-8/12 bg-gray-800 shadow-xl">
             <div className="card-body">
               <h2 className="card-title font-roboto text-4xl">
                 What is a unit test? Why should write unit tests?
@@ -121,7 +121,7 @@ const Blog = () => {
         break;
       case 5:
         element = element = (
-          <div className="card content-center card-compact w-8/12 bg-base-100 shadow-xl">
+          <div className="card content-center card-compact w-8/12 bg-gray-800 shadow-xl">
             <div className="card-body">
               <h2 className="card-title font-roboto text-4xl">
                 You have an array of products. Each product has a name, price,
@@ -151,7 +151,7 @@ const Blog = () => {
         break;
       default:
         element = (
-          <div className="card content-center card-compact w-8/12 bg-base-100 shadow-xl">
+          <div className="card content-center card-compact w-8/12 bg-gray-800 shadow-xl">
             <div className="card-body">
               <h2 className="font-extrabold text-center font-cursive text-5xl">
                 What's your Question ?
@@ -174,7 +174,7 @@ const Blog = () => {
   }
   return (
     <div className="min-h-screen">
-      <ul className="menu menu-vertical lg:menu-horizontal bg-base-100 rounded-box">
+      <ul className="menu menu-vertical lg:menu-horizontal bg-gray-600 rounded-box ">
         <li>
           <p onClick={() => setValue(1)}>Question-1</p>
         </li>
@@ -192,7 +192,7 @@ const Blog = () => {
         </li>
       </ul>
       <div className="min-h-screen grid grid-cols-1 place-content-center">
-        <div className="mt-4 container mx-auto flex place-content-center ">
+        <div className="mt-4 container mx-auto flex place-content-center  ">
           {GenerateAnswer(value)}
         </div>
       </div>

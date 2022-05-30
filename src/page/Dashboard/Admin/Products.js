@@ -102,7 +102,7 @@ const Products = () => {
             <label
               onClick={() => setEdititem({})}
               htmlFor="product-modal"
-              className="btn btn-sm btn-outline"
+              className="btn btn-sm btn-outline text-white"
             >
               Add Product
             </label>
@@ -115,7 +115,7 @@ const Products = () => {
             className="input input-ghost h-8 w-40"
             disabled={true}
           />
-          <button className="btn btn-sm ml-4 bg-base-100">Search</button>
+          <button className="btn btn-sm ml-4 bg-zinc-800">Search</button>
         </div>
       </div>
 

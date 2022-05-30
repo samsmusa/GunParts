@@ -60,7 +60,7 @@ const Profile = () => {
   }
   return (
     <div>
-      <div className="bg-zinc-900">
+      <div className="bg-gray-100 text-black">
         <div className="container mx-auto pt-7 grid grid-cols-1 md:grid-cols-6 gap-4">
           <div className="col-span-2">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,19 +86,18 @@ const Profile = () => {
                   />
                 </div>
               )}
-              <div className="pb-6">
-                <p className="font-code">{user?.displayName}</p>
+              <div className="pb-6 font-semibold">
+                <p className="font-code ">{user?.displayName}</p>
                 <p className="font-code">
                   <input
                     disabled={!isEdit}
                     type="text"
                     placeholder="not set yet"
-                    className="input input-ghost h-8"
+                    className="input font-bold input-bordered input-bg-zinc-900  disabled:opacity-100 h-8"
                     defaultValue={profile?.job}
                     {...register("job")}
                   />
                 </p>
-                
               </div>
               <p className="font-code flex flex-row justify-between items-center">
                 <span>
@@ -110,7 +109,7 @@ const Profile = () => {
                     disabled={!isEdit}
                     type="text"
                     placeholder="not set yet"
-                    className="input rounded-none input-ghost h-8"
+                    className="input disabled:opacity-100 font-bold input-bordered input-bg-zinc-900  h-8"
                     defaultValue={profile?.phone}
                     {...register("phone")}
                   />
@@ -125,7 +124,7 @@ const Profile = () => {
                   <input
                     type="text"
                     placeholder="not set yet"
-                    className="input rounded-none input-ghost h-8"
+                    className="input font-bold input-bordered input-bg-zinc-900  h-8"
                     defaultValue={user?.email}
                     {...register("email")}
                     disabled={true}
@@ -142,7 +141,7 @@ const Profile = () => {
                     disabled={!isEdit}
                     type="text"
                     placeholder="not set yet"
-                    className="input rounded-none input-ghost h-8"
+                    className="input font-bold input-bordered input-bg-zinc-900  h-8"
                     defaultValue={profile?.address}
                     {...register("address")}
                   />
@@ -160,7 +159,7 @@ const Profile = () => {
                       disabled={!isEdit}
                       type="text"
                       placeholder="not set yet"
-                      className="input rounded-none input-ghost h-8"
+                      className="input font-bold input-bordered input-bg-zinc-900  h-8"
                       defaultValue={profile?.github}
                       {...register("github")}
                     />
@@ -176,7 +175,7 @@ const Profile = () => {
                       disabled={!isEdit}
                       type="text"
                       placeholder="not set yet"
-                      className="input rounded-none input-ghost h-8"
+                      className="input font-bold input-bordered input-bg-zinc-900  h-8"
                       defaultValue={profile?.facebook}
                       {...register("facebook")}
                     />
@@ -192,7 +191,7 @@ const Profile = () => {
                       disabled={!isEdit}
                       type="text"
                       placeholder="not set yet"
-                      className="input rounded-none input-ghost h-8"
+                      className="input font-bold input-bordered input-bg-zinc-900  h-8"
                       defaultValue={profile?.website}
                       {...register("website")}
                     />

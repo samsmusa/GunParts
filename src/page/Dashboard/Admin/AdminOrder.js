@@ -33,7 +33,7 @@ const AdminOrder = () => {
       method: "PUT",
       headers: {
         "content-type": "application/json",
-        authorization: `Bearer `,
+        authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify(product),
     })
@@ -90,7 +90,9 @@ const AdminOrder = () => {
             className="input input-ghost h-8 w-40"
             disabled={true}
           />
-          <button className="btn btn-sm ml-4 bg-base-100">Search</button>
+          <button className="btn btn-sm ml-4 bg-slate-800 text-white">
+            Search
+          </button>
         </div>
       </div>
       <p className="text-left pt-2">
@@ -196,7 +198,7 @@ const AdminOrder = () => {
                       >
                         <button
                           onClick={() => actionItem(e, "complete")}
-                          className="btn btn-sm bg-base-100 bg-green  mx-1 p-0 m-0 px-2"
+                          className="btn btn-sm bg-slate-600 bg-green  mx-1 p-0 m-0 px-2"
                           type="submit"
                         >
                           <i className="fa-solid text-black fa-check"></i>
@@ -210,7 +212,7 @@ const AdminOrder = () => {
                       >
                         <button
                           onClick={() => actionItem(e, "canceled")}
-                          className="btn btn-sm bg-base-100  mx-1 p-0 m-0 px-2"
+                          className="btn btn-sm bg-slate-600  mx-1 p-0 m-0 px-2"
                           type="submit"
                         >
                           <i className="fa-solid fa-trash"></i>

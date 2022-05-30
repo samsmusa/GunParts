@@ -33,8 +33,8 @@ const DeleteProductModal = ({ id, refetch }) => {
         id="product-delete-modal"
         className="modal-toggle"
       />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+      <div className="modal modal-bottom  sm:modal-middle">
+        <div className="modal-box bg-slate-800">
           <label
             ref={closeRefmodal}
             htmlFor="product-delete-modal"

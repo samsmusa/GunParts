@@ -98,7 +98,7 @@ const Login = () => {
   return (
     <div className="bg-[url('https://i.ibb.co/st6b8gb/image-1.jpg')]">
       <div className="container  mx-auto pt-5">
-        <h3 className="font-cursive text-7xl">Register</h3>
+        <h3 className="font-cursive text-7xl">Login</h3>
         <div className="form-control mx-3 h-full grid grid-cols-1 md:grid-cols-5 pb-11">
           <div className="col-span-1 w-full"></div>
           <div className="col-span-3">
@@ -145,10 +145,10 @@ const Login = () => {
             <div className="divider ">or</div>
             <button
               onClick={() => signInWithGoogle()}
-              className="pt-3 bg-base-100 btn btn-wide w-full pb-3 mb-4"
+              className="pt-3 bg-zinc-800 btn btn-wide w-full pb-3 mb-4"
             >
               <i className="fa-brands fa-google"></i>{" "}
-              <span className="ml-4">Google Login</span>
+              <span className="ml-4 text-white">Google Login</span>
             </button>
             <div className="border border-sky-400 border-x-0"></div>
             <p className="text-xl">

@@ -177,10 +177,10 @@ const Register = () => {
             <div className="divider ">or</div>
             <button
               onClick={() => signInWithGoogle()}
-              className="pt-3 bg-base-100 btn btn-wide w-full pb-3 mb-4"
+              className="pt-3 bg-zinc-800 btn btn-wide w-full pb-3 mb-4"
             >
               <i className="fa-brands fa-google"></i>{" "}
-              <span className="ml-4">Google Login</span>
+              <span className="ml-4 text-white">Google Login</span>
             </button>
             <div className="border border-sky-400 border-x-0"></div>
             <p className="text-xl">

@@ -28,6 +28,12 @@ const PaymentCard = ({ data, openRef, setTransationId, refetch }) => {
   var date =
     today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
+  // if (data) {
+
+  // } elseif{
+
+  // }
+
   useEffect(() => {
     if (total) {
       fetch(
@@ -44,6 +50,7 @@ const PaymentCard = ({ data, openRef, setTransationId, refetch }) => {
         .then((res) => res.json())
         .then((res) => {
           if (res.clientSecret) {
+            console.log(res.clientSecret);
             setClientSecret(res.clientSecret);
           }
         });
@@ -121,7 +128,7 @@ const PaymentCard = ({ data, openRef, setTransationId, refetch }) => {
     <div>
       <input type="checkbox" id="payment-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box relative w-8/12 max-w-5xl">
+        <div className="modal-box bg-slate-800 relative w-8/12 max-w-5xl ">
           {isLoading && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
               <Progress />
@@ -206,7 +213,7 @@ const PaymentCard = ({ data, openRef, setTransationId, refetch }) => {
 
                 <button
                   disabled={!stripe || !clientSecret}
-                  className="btn btn-sm"
+                  className="btn btn-sm text-white"
                   type="submit"
                 >
                   Pay

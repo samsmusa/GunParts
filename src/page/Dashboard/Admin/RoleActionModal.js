@@ -39,12 +39,12 @@ const RoleActionModal = ({ data, refetch }) => {
   return (
     <div>
       <input type="checkbox" id="user-action-modal" className="modal-toggle" />
-      <div className="modal  modal-bottom sm:modal-middle">
+      <div className="modal   modal-bottom sm:modal-middle">
         <div
           className={
             data?.role === "client"
               ? "modal-box bg-warning text-black"
-              : "modal-box"
+              : "modal-box bg-slate-800"
           }
         >
           <label

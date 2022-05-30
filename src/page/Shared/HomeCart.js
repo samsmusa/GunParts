@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const HomeCart = ({ item }) => {
   return (
     <Link to={`/product/${item._id}`}>
-      <div className="card card-compact bg-base-100 shadow-xl">
+      <div className="card card-compact bg-gray-700 shadow-xl">
         <figure>
           <img
             src={item.img}

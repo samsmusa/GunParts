@@ -55,8 +55,8 @@ const PostReview = ({ product, refetch }) => {
             placeholder="say somethig"
             className={
               errors.comment
-                ? "textarea  w-full textarea-error m-2 resize-x"
-                : "textarea  w-full textarea-bordered m-2 resize-x"
+                ? "textarea  w-full textarea-error m-2 resize-x text-black font-semibold"
+                : "textarea  w-full textarea-bordered m-2 resize-x text-black font-semibold"
             }
             {...register("comment", { required: true })}
           ></textarea>
@@ -65,35 +65,35 @@ const PostReview = ({ product, refetch }) => {
               <input
                 disabled={profile?.role === "admin" || !profile}
                 type="radio"
-                className="mask mask-star"
+                className="mask mask-star bg-warning"
                 value="1"
                 {...register("rating", { required: true })}
               />
               <input
                 disabled={profile?.role === "admin" || !profile}
                 type="radio"
-                className="mask mask-star"
+                className="mask mask-star bg-warning"
                 value="2"
                 {...register("rating", { required: true })}
               />
               <input
                 disabled={profile?.role === "admin" || !profile}
                 type="radio"
-                className="mask mask-star"
+                className="mask mask-star bg-warning"
                 value="3"
                 {...register("rating", { required: true })}
               />
               <input
                 disabled={profile?.role === "admin" || !profile}
                 type="radio"
-                className="mask mask-star"
+                className="mask mask-star bg-warning"
                 value="4"
                 {...register("rating", { required: true })}
               />
               <input
                 disabled={profile?.role === "admin" || !profile}
                 type="radio"
-                className="mask mask-star"
+                className="mask mask-star bg-warning"
                 value="5"
                 {...register("rating", { required: true })}
               />

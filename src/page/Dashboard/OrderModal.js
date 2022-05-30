@@ -6,7 +6,7 @@ const OrderModal = ({ data }) => {
     <div>
       <input type="checkbox" id="lot-modal" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box">
+        <div className="modal-box bg-slate-800">
           <h3 className="font-bold text-lg">{product?.name}</h3>
           <table className="table-fixed w-full h-60">
             <thead className="">

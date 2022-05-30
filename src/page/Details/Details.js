@@ -138,7 +138,7 @@ const Details = () => {
                         </th>
                         <th className="px-4">
                           <button
-                            className="btn btn-sm cbtn bg-base-100"
+                            className="btn btn-sm cbtn bg-zinc-500"
                             type="submit"
                             disabled={item.length === 4 && true}
                           >
@@ -186,7 +186,7 @@ const Details = () => {
                           <th className="px-4">
                             <button
                               onClick={() => deleteItem(index)}
-                              className="btn bg-base-100 crbtn px-4 p-0 m-0"
+                              className="btn bg-zinc-500 crbtn px-4 p-0 m-0"
                               type="submit"
                             >
                               <i className="fa-solid fa-trash"></i>

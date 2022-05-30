@@ -2,7 +2,7 @@ import React from "react";
 
 const ReviewCard = ({ data, ishome }) => {
   return (
-    <div className="mt-3 p-3 flex border rounded-lg text-sm">
+    <div className="mt-3 p-3 flex border rounded-lg text-sm text-white">
       <div className="avatar col-span-1">
         <div
           className={
@@ -15,7 +15,7 @@ const ReviewCard = ({ data, ishome }) => {
 
       <div className="w-full ml-4 text-left">
         <p>
-          {data.profile.email} (
+          {data.profile.name} (
           {Array.from(Array(parseInt(data.rating)).keys()).map((e) => (
             <i key={e + "gyu"} className="fa-solid fa-star"></i>
           ))}

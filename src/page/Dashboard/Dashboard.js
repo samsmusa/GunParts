@@ -17,7 +17,7 @@ const Dashboard = () => {
   }
   return (
     <div>
-      <div className="drawer drawer-mobile">
+      <div className="drawer drawer-mobile ">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col p-3 bg-zinc-900">
           <label
@@ -38,7 +38,7 @@ const Dashboard = () => {
             <p className="text-xs"> [ {user?.metadata?.creationTime} ]</p>
           </div>
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 overflow-y-auto w-62 bg-base-100 text-base-content font-code">
+          <ul className="menu p-4 overflow-y-auto w-62  bg-slate-800 text-gray-200 text-base-content font-code">
             {profile?.role === "admin" && (
               <>
                 <li>

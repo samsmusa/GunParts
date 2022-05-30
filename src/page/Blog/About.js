@@ -5,7 +5,7 @@ const About = () => {
     <div>
       <div>
         <h3 className="mt-6 font-cursive text-6xl">Our Head-office</h3>
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen bg-gray-800">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <img
               src="https://bloximages.chicago2.vip.townnews.com/idahopress.com/content/tncms/assets/v3/editorial/f/59/f590bfc5-694c-560b-9f92-d6b6593f4fbf/5acd4f6775f25.image.jpg?crop=1560%2C1170%2C105%2C0&resize=1560%2C1170&order=crop%2Cresize"

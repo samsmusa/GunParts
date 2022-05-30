@@ -50,11 +50,11 @@ const Reviews = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.status === 'success') {
-          toast.success("successfully deleted")
+        if (res.status === "success") {
+          toast.success("successfully deleted");
           refetch();
         } else {
-          toast.error('something error')
+          toast.error("something error");
         }
       });
   }
@@ -177,7 +177,7 @@ const Reviews = () => {
                   <th className="px-4">
                     <button
                       onClick={() => deleteItem(e._id)}
-                      className="btn bg-base-100 crbtn px-4 p-0 m-0"
+                      className="btn bg-zinc-800 text-white crbtn px-4 p-0 m-0"
                     >
                       <i className="fa-solid fa-trash"></i>
                     </button>

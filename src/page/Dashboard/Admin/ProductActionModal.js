@@ -56,8 +56,8 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
   return (
     <div>
       <input type="checkbox" id="product-modal" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box w-11/12 max-w-5xl">
+      <div className="modal modal-bottom sm:modal-middle ">
+        <div className="modal-box w-11/12 max-w-5xl bg-slate-800">
           <label
             ref={closeRef}
             htmlFor="product-modal"
@@ -97,7 +97,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.name}
-                        className="input input-sm input-bordered w-full max-w-xs"
+                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
                         {...register("name", {
                           required: true,
                         })}
@@ -112,7 +112,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.gunType}
-                        className="input input-sm input-bordered w-full max-w-xs"
+                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
                         {...register("gunType", {
                           required: true,
                         })}
@@ -127,7 +127,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.partsType}
-                        className="input input-sm input-bordered w-full max-w-xs"
+                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
                         {...register("partsType", {
                           required: true,
                         })}
@@ -142,7 +142,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.cost}
-                        className="input input-sm input-bordered w-full max-w-xs"
+                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
                         {...register("cost", {
                           required: true,
                         })}
@@ -157,7 +157,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.time}
-                        className="input input-sm input-bordered w-full max-w-xs"
+                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
                         {...register("time", {
                           required: true,
                         })}
@@ -172,7 +172,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product.description}
-                        className="textarea textarea-bordered w-full max-w-xs"
+                        className="textarea textarea-bordered w-full max-w-xs text-black font-semibold"
                         {...register("description", {
                           required: true,
                         })}
@@ -205,7 +205,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                   htmlFor="product-modal"
                   type="submit"
                   value={product?.name ? "edit" : "Add New"}
-                  className="btn mt-4 btn-wide bg-zinc-100 w-full max-w-xs"
+                  className="btn mt-4 btn-wide bg-zinc-900 text-white w-full max-w-xs"
                 />
               </div>
             </div>

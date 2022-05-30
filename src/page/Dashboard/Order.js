@@ -13,6 +13,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import PaymentCard from "./Payment/PaymentCard";
 import ConfirmModal from "./Payment/ConfirmModal";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 const Order = () => {
   const openRef = useRef();
@@ -95,7 +96,6 @@ const Order = () => {
     return classname;
   };
 
-
   if (isLoading) {
     return <Progress />;
   }
@@ -106,7 +106,9 @@ const Order = () => {
         <div>
           <span className="pr-2 text-xl">Orders</span>
           <span>
-            <button className="btn btn-sm btn-outline">Add order</button>
+            <Link to="/products">
+              <button className="btn btn-sm btn-outline">Add order</button>
+            </Link>
           </span>
         </div>
         <div>
@@ -232,7 +234,7 @@ const Order = () => {
                     <button
                       disabled={e.status !== "pending"}
                       onClick={() => actionItem(e, "canceled")}
-                      className="btn btn-sm bg-base-100  px-4 p-0 m-0"
+                      className="btn btn-sm bg-slate-800  px-4 p-0 m-0"
                       type="submit"
                     >
                       <i className="fa-solid fa-trash"></i>

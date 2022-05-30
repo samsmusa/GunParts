@@ -22,19 +22,32 @@ const Navbar = () => {
           PistolBD
         </Link>
       </div>
-      <div className="flex-none">
+      <div className="flex-none text-white">
         <Link className="pr-2" to="/">
-          <button className="btn btn-sm cbtn btn-outline">Home</button>
+          <button className="btn text-white btn-sm cbtn btn-outline">
+            Home
+          </button>
         </Link>
         <Link className="pr-2" to="/about">
-          <button className="btn btn-sm cbtn btn-outline">About</button>
+          <button className="btn text-white btn-sm cbtn btn-outline">
+            About
+          </button>
         </Link>
         <Link className="pr-2" to="/blog">
-          <button className="btn btn-sm cbtn btn-outline">blog</button>
+          <button className="btn text-white btn-sm cbtn btn-outline">
+            blog
+          </button>
+        </Link>
+        <Link className="pr-2" to="/portfolio">
+          <button className="btn text-white btn-sm cbtn btn-outline">
+            Portfolio
+          </button>
         </Link>
         {!user && (
           <Link className="pr-2" to="/login">
-            <button className="btn btn-sm cbtn btn-outline">Login</button>
+            <button className="btn text-white btn-sm cbtn btn-outline">
+              Login
+            </button>
           </Link>
         )}
 
@@ -47,7 +60,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex="0"
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="bg-slate-800 menu menu-compact dropdown-content mt-3 p-2 shadow  rounded-box w-52"
             >
               <li>
                 <Link to="/profile" className="justify-between">

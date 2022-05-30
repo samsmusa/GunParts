@@ -22,24 +22,47 @@ import RequireAuth from "./hooks/RequireAuth";
 import Footer from "./components/Footer/Footer";
 import About from "./page/Blog/About";
 import Blog from "./page/Blog/Blog";
+import Portfolio from "./page/PortPolio/Portfolio"
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-slate-800 text-gray-300">
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/products" element={<ProductsView />} />
         <Route path="/product/:id" element={<Details />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
 
-        <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>}>
-          <Route path="order" element={<RequireAuth><Order /></RequireAuth>} />
-          <Route path="review" element={<RequireAuth><Reviews /></RequireAuth>} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
+          <Route
+            path="order"
+            element={
+              <RequireAuth>
+                <Order />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="review"
+            element={
+              <RequireAuth>
+                <Reviews />
+              </RequireAuth>
+            }
+          />
 
           <Route
             path="admin/user"

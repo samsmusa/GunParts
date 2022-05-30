@@ -47,7 +47,7 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
     <div>
       <input type="checkbox" id="order-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+        <div className="modal-box bg-slate-800">
           <label
             ref={closeRef}
             htmlFor="order-modal"
@@ -133,7 +133,7 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
                   htmlFor="order-modal"
                   type="submit"
                   value="Submit"
-                  className="btn mt-4 btn-wide bg-zinc-100 w-full max-w-xs"
+                  className="btn mt-4 text-white btn-wide bg-zinc-800 w-full max-w-xs"
                 />
               </div>
             </div>
