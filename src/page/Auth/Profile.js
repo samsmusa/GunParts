@@ -141,7 +141,7 @@ const Profile = () => {
                     disabled={!isEdit}
                     type="text"
                     placeholder="not set yet"
-                    className="input font-bold input-bordered input-bg-zinc-900  h-8"
+                    className="input font-bold input-bordered  h-8"
                     defaultValue={profile?.address}
                     {...register("address")}
                   />

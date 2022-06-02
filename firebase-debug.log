@@ -1,0 +1,15 @@
+[debug] [2022-06-02T16:57:37.835Z] ----------------------------------------------------------------------
+[debug] [2022-06-02T16:57:37.840Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MUSA\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-06-02T16:57:37.841Z] CLI Version:   10.7.2
+[debug] [2022-06-02T16:57:37.841Z] Platform:      win32
+[debug] [2022-06-02T16:57:37.842Z] Node Version:  v16.14.0
+[debug] [2022-06-02T16:57:37.896Z] Time:          Thu Jun 02 2022 22:57:37 GMT+0600 (Bangladesh Standard Time)
+[debug] [2022-06-02T16:57:37.896Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-06-02T16:57:37.917Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2022-06-02T16:57:38.121Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-06-02T16:57:38.121Z] > authorizing via signed-in user (samsmusa.nstu@gmail.com)
+[debug] [2022-06-02T16:57:38.123Z] [iam] checking project gunparts-c9161 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-06-02T16:57:38.125Z] > refreshing access token with scopes: []
+[debug] [2022-06-02T16:57:38.126Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>

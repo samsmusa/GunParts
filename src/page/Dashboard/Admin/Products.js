@@ -14,7 +14,7 @@ const Products = () => {
 
   function getOccurrencear(array, value) {
     var count = [];
-    array.forEach((v) => {
+    array?.forEach((v) => {
       if (v.product._id === value) {
         count.push(v);
       }
@@ -23,14 +23,14 @@ const Products = () => {
   }
   function getRatings(array, id) {
     var count = 0;
-    array.forEach((v) => {
+    array?.forEach((v) => {
       count += parseInt(v.rating);
     });
     return { average: count, rate: array.length, _id: id };
   }
   function getsold(array, id) {
     var count = 0;
-    array.forEach((v) => {
+    array?.forEach((v) => {
       count += v.item.length;
     });
     return { sold: count, _id: id };
@@ -54,20 +54,22 @@ const Products = () => {
   );
 
   useEffect(() => {
-    if (reviews && product) {
-      const datasRating = product.map((e) => getOccurrencear(reviews, e._id));
-      const datasOrder = product.map((e) => getOccurrencear(orderes, e._id));
+    if (reviews !== undefined) {
+      if (product !== undefined) {
+        const datasRating = product?.map((e) => getOccurrencear(reviews, e._id));
+        const datasOrder = product?.map((e) => getOccurrencear(orderes, e._id));
 
-      setSoldCount(datasOrder.map((e) => getsold(e.data, e._id)));
+        setSoldCount(datasOrder?.map((e) => getsold(e.data, e._id)));
 
-      setrateCount(datasRating.map((e) => getRatings(e.data, e._id)));
+        setrateCount(datasRating?.map((e) => getRatings(e.data, e._id)));
+      }
     }
   }, [reviews, product]);
 
   function RateCounter(id) {
     let rates = 0;
     let avrate = 0;
-    rateCount.forEach((k) => {
+    rateCount?.forEach((k) => {
       if (k._id === id) {
         rates = k.rate;
         if (parseFloat(k.average) / parseFloat(k.rate)) {
@@ -80,7 +82,7 @@ const Products = () => {
 
   function SoldCounter(id) {
     let sold = 0;
-    soldCount.forEach((k) => {
+    soldCount?.forEach((k) => {
       if (k._id === id) {
         sold = k.sold;
       }

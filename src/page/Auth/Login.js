@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase.init";
 import {
@@ -25,6 +25,8 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   const [sendEmailVerification] = useSendEmailVerification(auth);
   const [emailAcc, setEmailAcc] = useState("");
+  
+  const location = useLocation();
 
   const {
     register,
@@ -91,8 +93,9 @@ const Login = () => {
         );
       }
     }
+    let from = location.state?.from?.pathname || "/";
 
-    navigate("/");
+    navigate(from, { replace: true });
   }
 
   return (
