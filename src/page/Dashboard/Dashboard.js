@@ -7,10 +7,12 @@ import { useState } from "react";
 import useProfile from "../../hooks/useProfile";
 
 import Progress from "../../components/Progress/Progress";
+import ProductActionModal from "./Admin/ProductActionModal";
 
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
   const profile = useProfile();
+  const [edititem, setEdititem] = useState({});
 
   if (loading) {
     return <Progress />
@@ -65,6 +67,16 @@ const Dashboard = () => {
                     Manage products
                   </Link>
                 </li>
+
+                
+                <li>
+                  
+                  <label
+              onClick={() => setEdititem({})}
+              htmlFor="product-modal"
+              className=""
+            ><i className="fa-brands fa-product-hunt pr-2"></i> Add Product</label>
+                </li>
               </>
             )}
             {profile?.role === "client" && (
@@ -98,6 +110,11 @@ const Dashboard = () => {
           </ul>
         </div>
       </div>
+      <ProductActionModal
+        product={edititem}
+        setEdititem={setEdititem}
+        
+      ></ProductActionModal>
     </div>
   );
 };

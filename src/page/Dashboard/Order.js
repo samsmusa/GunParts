@@ -49,15 +49,14 @@ const Order = () => {
   );
 
   const [lot, setlot] = useState([]);
-  const actionItem = (product, status) => {
-    product.status = status;
-    fetch("https://fathomless-wave-64649.herokuapp.com/order", {
-      method: "PUT",
+  const actionItem = (id) => {
+    
+    fetch(`https://fathomless-wave-64649.herokuapp.com/order/${id}`, {
+      method: "DELETE",
       headers: {
         "content-type": "application/json",
         authorization: localStorage.getItem("accessToken"),
       },
-      body: JSON.stringify(product),
     })
       .then((res) => res.json())
       .then((result) => {
@@ -194,6 +193,7 @@ const Order = () => {
               <th className="">Total</th>
               <th className="">status</th>
               <th className="">payment</th>
+              <th className="">transactionId</th>
               <th className="">Action</th>
             </tr>
           </thead>
@@ -219,10 +219,10 @@ const Order = () => {
                     {e.status === "pending" ? (
                       <label
                         onClick={() => setOrderPayment(e)}
-                        className="btn btn-sm bg-green  px-4 p-0 m-0"
+                        className="btn btn-sm bg-success  px-4 p-0 m-0"
                         htmlFor="payment-modal"
                       >
-                        <i className="fa-solid fa-sack-dollar text-black"></i>
+                        <i className="fa-solid fa-sack-dollar text-white "></i>
                       </label>
                     ) : e.status === "canceled" ? (
                       "unpaid"
@@ -230,10 +230,12 @@ const Order = () => {
                       "paids"
                     )}
                   </th>
+                  
+                  <th className="">{e?.transactionId}</th>
                   <th className="">
                     <button
-                      disabled={e.status !== "pending"}
-                      onClick={() => actionItem(e, "canceled")}
+                      disabled={!(e.status==='pending' || e.status==='canceled')}
+                      onClick={() => actionItem(e._id)}
                       className="btn btn-sm bg-slate-800  px-4 p-0 m-0"
                       type="submit"
                     >

@@ -56,10 +56,20 @@ const Details = () => {
   } = LoadData(
     `https://fathomless-wave-64649.herokuapp.com/reviews/?product=${id}`,
     ["reviewData", id]
-  );
+    );
+  
+  const PriceCount = (array, cost) => {
+    let quantityit = 0
+    array?.forEach(e => {
+      quantityit += parseInt(e?.deliveryQuantity)
+    })
+    return (quantityit * parseFloat(cost)).toFixed(2)
+  }
   if (isLoading) {
     return <Progress />;
   }
+
+  console.log(errors?.deliveryQuantity)
   return (
     <div>
       <div className="bg-zinc-900">
@@ -88,9 +98,12 @@ const Details = () => {
             <div className="font-cursive">
               <p>Gun: {product.gunType}</p>
               <p>parts: {product.partsType}</p>
+              <p>available: {product?.quantity}</p>
               <p>cost: {product.cost}</p>
             </div>
-
+            <p className="text-xl text-warning">
+                Buyers can buy item in a lot. A lot contain maximum 4 item !
+              </p>
             {!profile && (
               <p className="text-xl text-warning">
                 please login to make a order
@@ -136,14 +149,26 @@ const Details = () => {
                             <option>Express</option>
                           </select>
                         </th>
+                        <th>
+                          <input
+                            type="number"
+                            placeholder="Type here"
+                            class="input input-ghost"
+                            defaultValue={product?.minQuantity}
+                            {...register("deliveryQuantity", { required: true, min:product?.minQuantity, max:product?.quantity })}
+                          />
+                        </th>
                         <th className="px-4">
                           <button
                             className="btn btn-sm cbtn bg-zinc-500"
                             type="submit"
-                            disabled={item.length === 4 && true}
+                            disabled={(item?.length === 4 && true) || errors?.deliveryQuantity}
                           >
                             Add
                           </button>
+                        </th>
+                        <th className="px-4">
+                          {errors?.deliveryQuantity && <span className="text-error">min is {product?.minQuantity} max value is {product?.quantity}</span>}
                         </th>
                       </tr>
                     </thead>
@@ -169,6 +194,7 @@ const Details = () => {
                       <th className="pl-4">Color</th>
                       <th className="px-11">Size</th>
                       <th className="px-11">Delivery</th>
+                      <th className="px-11">Quantity</th>
                       <th className="px-4">Action</th>
                     </tr>
                   </thead>
@@ -180,9 +206,10 @@ const Details = () => {
                           className="border border-gray-500  border-x-0 "
                         >
                           <th className="px-4">{index + 1}</th>
-                          <th className="px-4">{e.color}</th>
-                          <th className="px-11">{e.size}</th>
-                          <th className="px-11">{e.delivery}</th>
+                          <th className="px-4">{e?.color}</th>
+                          <th className="px-11">{e?.size}</th>
+                          <th className="px-11">{e?.delivery}</th>
+                          <th className="px-11">{e?.deliveryQuantity}</th>
                           <th className="px-4">
                             <button
                               onClick={() => deleteItem(index)}
@@ -199,7 +226,7 @@ const Details = () => {
                 <p className="flex flex-row justify-between mt-4">
                   <span>
                     Total Cost: $
-                    {(item.length * parseFloat(product.cost)).toFixed(2)}
+                    {item && PriceCount(item, product?.cost)}
                   </span>
                   <label
                     disabled={item.length === 0 || !profile}

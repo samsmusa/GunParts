@@ -43,7 +43,7 @@ const RoleActionModal = ({ data, refetch }) => {
         <div
           className={
             data?.role === "client"
-              ? "modal-box bg-warning text-black"
+              ? "modal-box bg-warning text-white"
               : "modal-box bg-slate-800"
           }
         >
@@ -62,7 +62,7 @@ const RoleActionModal = ({ data, refetch }) => {
           </h3>
           <div className="avatar py-4">
             <div className="w-24 rounded-full">
-              <img src="https://api.lorem.space/image/face?hash=92310" />
+              <img src={data?.img || "https://api.lorem.space/image/face?hash=92310"} />
             </div>
           </div>
           <p className="">{data?.email}</p>

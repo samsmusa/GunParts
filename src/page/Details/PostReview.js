@@ -55,8 +55,8 @@ const PostReview = ({ product, refetch }) => {
             placeholder="say somethig"
             className={
               errors.comment
-                ? "textarea  w-full textarea-error m-2 resize-x text-black font-semibold"
-                : "textarea  w-full textarea-bordered m-2 resize-x text-black font-semibold"
+                ? "textarea  w-full textarea-error m-2 resize-x text-white font-semibold"
+                : "textarea  w-full textarea-bordered m-2 resize-x text-white font-semibold"
             }
             {...register("comment", { required: true })}
           ></textarea>

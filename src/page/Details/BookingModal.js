@@ -16,12 +16,20 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
     formState: { errors },
   } = useForm();
 
+  const PriceCount = (array, cost) => {
+    let quantityit = 0
+    array?.forEach(e => {
+      quantityit += parseInt(e.deliveryQuantity)
+    })
+    return (quantityit * parseFloat(cost)).toFixed(2)
+  }
+
   const submit = (data) => {
     data.product = product;
     data.item = item;
     data.date = date;
     data.lot = item.length;
-    data.total = (item.length * parseFloat(product?.cost)).toFixed(2);
+    data.total = PriceCount(item, product.cost);
 
     data.status = "pending";
     data.email = profile.email;
@@ -47,7 +55,7 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
     <div>
       <input type="checkbox" id="order-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box bg-slate-800">
+        <div className="modal-box w-11/12  bg-slate-800">
           <label
             ref={closeRef}
             htmlFor="order-modal"
@@ -76,6 +84,7 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
                         <th className="px-4">{e.color}</th>
                         <th className="px-11">{e.size}</th>
                         <th className="px-11">{e.delivery}</th>
+                        <th className="px-11">{e.deliveryQuantity}</th>
                       </tr>
                     ))}
                   <tr className="border border-sky-500  border-x-0 mt-3">
@@ -83,7 +92,7 @@ const BookingModal = ({ user, profile, item, product, setItem }) => {
                     <th className="px-4">{product.gunType}</th>
                     <th className="px-4">${product.cost}(per item)</th>
                     <th className="px-4">
-                      ${(item.length * parseFloat(product.cost)).toFixed(2)}
+                      ${item && PriceCount(item, product.cost)}
                       (Total)
                     </th>
                   </tr>

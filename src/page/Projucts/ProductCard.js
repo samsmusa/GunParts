@@ -17,10 +17,12 @@ const ProductCard = ({ item, rated }) => {
         <h2 className="card-title text-xs">{item.name}</h2>
         <div className="divider m-0 p-0"></div>
         <p className="font-cursive m-0 p-0">{item.partsType}</p>
+        <p className="font-cursive m-0 p-0">${item.cost}</p>
+        <p className="font-cursive m-0 p-0">{item?.description.slice(0,40)+'...'}</p>
         <div className="divider divide-white  border-gray-100 m-0 p-0 "></div>
         <div className="card-actions">
           <Link to={`/product/${item._id}`}>
-            <button className="btn btn bg-gray-500 ">See Details</button>
+            <button className="btn btn bg-gray-500 ">Order Now</button>
           </Link>
         </div>
       </div>

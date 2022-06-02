@@ -188,7 +188,7 @@ const AdminOrder = () => {
                   <th className="">{e.total}</th>
                   <th className="">{e.status}</th>
                   <th className="">
-                    {e.status === "processing" ? "paid" : "unpaid"}
+                    {e.status === "processing" ? "paid" : e.status === "complete" ? "shipped" : "unpaid" }
                   </th>
                   <th className="">
                     {e.status === "processing" && (
@@ -198,14 +198,14 @@ const AdminOrder = () => {
                       >
                         <button
                           onClick={() => actionItem(e, "complete")}
-                          className="btn btn-sm bg-slate-600 bg-green  mx-1 p-0 m-0 px-2"
+                          className="btn btn-sm bg-slate-600 bg-success  mx-1 p-0 m-0 px-2"
                           type="submit"
                         >
-                          <i className="fa-solid text-black fa-check"></i>
+                          <i className="fa-solid text-white fa-check"></i>
                         </button>
                       </div>
                     )}
-                    {e.status === "processing" && (
+                    {e.status === "pending" && (
                       <div
                         className="tooltip tooltip-error  tooltip-top"
                         data-tip="calcel ?"

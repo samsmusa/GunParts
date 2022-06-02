@@ -60,7 +60,7 @@ const Profile = () => {
   }
   return (
     <div>
-      <div className="bg-gray-100 text-black">
+      <div className="bg-zinc-800 text-white">
         <div className="container mx-auto pt-7 grid grid-cols-1 md:grid-cols-6 gap-4">
           <div className="col-span-2">
             <form onSubmit={handleSubmit(onSubmit)}>

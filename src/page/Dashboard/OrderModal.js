@@ -14,6 +14,7 @@ const OrderModal = ({ data }) => {
                 <th className="">No</th>
                 <th className="">color</th>
                 <th className="">size</th>
+                <th className="">quantity</th>
                 <th className="">delivery</th>
               </tr>
             </thead>
@@ -24,6 +25,7 @@ const OrderModal = ({ data }) => {
                     <th className="">{index + 1}</th>
                     <th className="">{e?.color}</th>
                     <th className="">{e?.size}</th>
+                    <th className="">{e?.deliveryQuantity}</th>
                     <th className="">{e?.delivery}</th>
                   </tr>
                 ))}

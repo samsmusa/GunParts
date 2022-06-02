@@ -23,6 +23,10 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
     formState: { errors },
   } = useForm();
 
+  // if (product !== undefined) {
+  //   reset(product)
+  // }
+
   const submit = async (data) => {
     data.img = product.img;
     if (data.image.length !== 0) {
@@ -45,10 +49,13 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
       .then((res) => {
         if (res.status === "success") {
           toast.success("Proudct  successfully Added");
-          refetch();
+          
           reset();
           setEdititem({});
           setImage(null);
+          if (refetch!== undefined) {
+            refetch();
+          }
         }
       });
     closeRef.current.click();
@@ -97,7 +104,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.name}
-                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
+                        className="input input-sm text-white font-semibold input-bordered w-full max-w-xs"
                         {...register("name", {
                           required: true,
                         })}
@@ -112,7 +119,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.gunType}
-                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
+                        className="input input-sm text-white font-semibold input-bordered w-full max-w-xs"
                         {...register("gunType", {
                           required: true,
                         })}
@@ -127,8 +134,38 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.partsType}
-                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
+                        className="input input-sm text-white font-semibold input-bordered w-full max-w-xs"
                         {...register("partsType", {
+                          required: true,
+                        })}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>quantity :</td>
+                    <td>{"   "}</td>
+                    <td>
+                      <input
+                        type="number"
+                        placeholder="Type value"
+                        defaultValue={product?.quantity}
+                        className="input input-sm text-white font-semibold input-bordered w-full max-w-xs"
+                        {...register("quantity", {
+                          required: true,
+                        })}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>min-quantity :</td>
+                    <td>{"   "}</td>
+                    <td>
+                      <input
+                        type="number"
+                        placeholder="Type value"
+                        defaultValue={product?.minQuantity}
+                        className="input input-sm text-white font-semibold input-bordered w-full max-w-xs"
+                        {...register("minQuantity", {
                           required: true,
                         })}
                       />
@@ -142,7 +179,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.cost}
-                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
+                        className="input input-sm text-white font-semibold input-bordered w-full max-w-xs"
                         {...register("cost", {
                           required: true,
                         })}
@@ -157,7 +194,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product?.time}
-                        className="input input-sm text-black font-semibold input-bordered w-full max-w-xs"
+                        className="input input-sm text-white font-semibold input-bordered w-full max-w-xs"
                         {...register("time", {
                           required: true,
                         })}
@@ -172,7 +209,7 @@ const ProductActionModal = ({ product, profile, refetch, setEdititem }) => {
                         type="text"
                         placeholder="Type here"
                         defaultValue={product.description}
-                        className="textarea textarea-bordered w-full max-w-xs text-black font-semibold"
+                        className="textarea textarea-bordered w-full max-w-xs text-white font-semibold"
                         {...register("description", {
                           required: true,
                         })}
