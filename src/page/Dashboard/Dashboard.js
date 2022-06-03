@@ -41,6 +41,7 @@ const Dashboard = () => {
           </div>
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 overflow-y-auto w-62  bg-slate-800 text-gray-200 text-base-content font-code">
+            
             {profile?.role === "admin" && (
               <>
                 <li>

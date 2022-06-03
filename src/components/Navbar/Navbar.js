@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-import { signOut } from 'firebase/auth';
+import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { useEffect } from "react";
 import useProfile from "../../hooks/useProfile";
@@ -12,8 +12,6 @@ const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
 
   const profile = useProfile();
-
-  
 
   return (
     <div className="navbar bg-gradient-to-r from-black via-slate-300 to-black text-white ">
@@ -49,6 +47,27 @@ const Navbar = () => {
               Login
             </button>
           </Link>
+        )}
+        {user && (
+          <>
+            <Link
+              to={
+                profile?.role === "admin"
+                  ? "dashboard/admin/order"
+                  : "dashboard/order"
+              }
+            >
+              <button className="btn text-white btn-sm cbtn btn-outline">
+                Dashboard
+              </button>
+            </Link>
+
+            <Link to="/profile" className="justify-between">
+              <button className="btn text-white btn-sm cbtn btn-outline px-3">
+                Profile
+              </button>
+            </Link>
+          </>
         )}
 
         {user && (

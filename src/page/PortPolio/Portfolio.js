@@ -7,6 +7,7 @@ const Portfolio = () => {
         <div class="hero-content text-center">
           <div class="max-w-md">
             <h1 class="text-5xl font-bold">Muhammad Samsuddin</h1>
+            <p className="text-sm">&lt; samsmusa@outlook.com &gt;</p>
             <p class="py-6">
               A self-driven attitude, willingness to learn and a strong presence
               of mind. Optimistic, confident and benevolent. Energetic, devoted,
@@ -100,7 +101,7 @@ const Portfolio = () => {
                   <a href="https://scholaruni.com">ScholarUni</a>
                 </td>
                 <td className="text-left">
-                  HTML | CSS | JavaScript | Python | MySQL
+                  HTML | CSS | JavaScript | Python | Django | MySQL
                 </td>
               </tr>
               <tr>
