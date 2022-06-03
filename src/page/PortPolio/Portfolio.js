@@ -6,7 +6,7 @@ const Portfolio = () => {
       <div class="hero bg-base-200">
         <div class="hero-content text-center">
           <div class="max-w-md">
-            <h1 class="text-5xl font-bold">Muhammad Samsudding</h1>
+            <h1 class="text-5xl font-bold">Muhammad Samsuddin</h1>
             <p class="py-6">
               A self-driven attitude, willingness to learn and a strong presence
               of mind. Optimistic, confident and benevolent. Energetic, devoted,

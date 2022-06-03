@@ -23,6 +23,7 @@ import Footer from "./components/Footer/Footer";
 import About from "./page/Blog/About";
 import Blog from "./page/Blog/Blog";
 import Portfolio from "./page/PortPolio/Portfolio"
+import NotFound from "./page/Shared/NotFound";
 
 function App() {
   return (
@@ -34,7 +35,14 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/products" element={<ProductsView />} />
-        <Route path="/product/:id" element={<Details />} />
+        <Route
+          path="/product/:id"
+          element={
+            <RequireAuth>
+              <Details />
+            </RequireAuth>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
@@ -97,6 +105,8 @@ function App() {
             }
           />
         </Route>
+
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
       <Footer />
       <ToastContainer theme="dark" />

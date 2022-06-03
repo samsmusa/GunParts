@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import LoadData from "../../hooks/LoadData";
@@ -64,9 +65,15 @@ const Reviews = () => {
         <div>
           <span className="pr-2 text-xl">Reviews</span>
           <span>
-            <button className="btn btn-sm btn-outline">Add review</button>
+            <Link to="/products">
+              <button className="btn btn-sm btn-outline">Add review</button>
+            </Link>
           </span>
         </div>
+        <p className="text-warning text-sm p-0 m-0">
+          Review will be product based. Please Click order now button.<br/> Under the
+          Purchase page, you will be see 'post review section'
+        </p>
         <div>
           <input
             type="text"
